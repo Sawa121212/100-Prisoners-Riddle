@@ -1,0 +1,13 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
+        xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
+        xmlns:regions="clr-namespace:Common.Core.Regions;assembly=Common.Core"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        x:Class="PrisonersRiddle.Views.ShellView"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Title}" Width="1280" Height="720">
+
+    <ContentControl prism:RegionManager.RegionName="{x:Static regions:RegionNameService.ContentRegionName}" />
+</Window>
