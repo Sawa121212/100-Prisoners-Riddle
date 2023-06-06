@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <DrawingImage x:Key="PrisonerDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V23.812497 H23.812497 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFF7F2A">
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry RadiusX="2.3267" RadiusY="3" Rect="1.3072,11.1554,21.1981,11.3499" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFFCCAA">
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry RadiusX="4.7045" RadiusY="4.7045" Center="11.9582,6.0117" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

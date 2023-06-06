@@ -3,15 +3,22 @@
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              xmlns:prisonersRiddle="clr-namespace:PrisonersRiddle"
              x:Class="PrisonersRiddle.App">
-    
+
     <Application.DataTemplates>
         <prisonersRiddle:ViewLocator />
     </Application.DataTemplates>
-    
+
     <Application.Resources>
-        <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source='avares://Common.Resources/Geometries.axaml'/>
+                <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
-    
+
     <!-- Используем стиль Material.Avalonia -->
     <Application.Styles>
         <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />

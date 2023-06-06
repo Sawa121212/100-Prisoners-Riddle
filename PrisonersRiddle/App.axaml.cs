@@ -5,19 +5,16 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Common.Core.Localization;
-using Common.Core.Regions;
 using ModuleA;
-using ModuleB;
-using ModuleC;
+using BusinessLogic;
+using BusinessLogic.Infrastructure.Services;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Mvvm;
-using Prism.Regions;
 using PrisonersRiddle.Properties;
 using PrisonersRiddle.Views;
 using IResourceProvider = Common.Core.Localization.IResourceProvider;
-using MainView = ModuleA.Views.MainView;
 
 namespace PrisonersRiddle;
 
@@ -43,9 +40,10 @@ public class App : PrismApplication
         containerRegistry
             .RegisterSingleton<ILocalizer, Localizer>()
             .RegisterSingleton<IResourceProvider, ResourceProvider>(Assembly.GetExecutingAssembly().FullName)
+            .RegisterSingleton<IMainService, MainService>()
+            .RegisterSingleton<ISearchService, SearchService>()
             ;
         containerRegistry.RegisterSingleton<ShellView>();
-        containerRegistry.RegisterForNavigation<MainView>();
     }
 
     /// <summary>
@@ -55,9 +53,8 @@ public class App : PrismApplication
     protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
     {
         moduleCatalog
-            .AddModule<ModuleAModule>()
-            .AddModule<ModuleBModule>()
-            .AddModule<ModuleCModule>();
+            .AddModule<WelcomeModule>()
+            .AddModule<BusinessLogicModule>();
 
         base.ConfigureModuleCatalog(moduleCatalog);
     }
@@ -65,10 +62,7 @@ public class App : PrismApplication
     protected override void InitializeShell(IAvaloniaObject shell)
     {
         base.InitializeShell(shell);
-
-        var regionManager = Container.Resolve<IRegionManager>();
-        regionManager.RegisterViewWithRegion(RegionNameService.ContentRegionName, nameof(MainView));
-
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = CreateShell();

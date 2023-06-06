@@ -71,7 +71,7 @@ namespace Common.Core.Localization
             get
             {
                 if (_resources == null || !_resources.Any())
-                    return "<ERROR! LANGUAGE Resources is empty>";
+                    return "<ERROR! LANGUAGE Common.Resources is empty>";
 
                 var row = GetExpression(key);
 
@@ -89,7 +89,7 @@ namespace Common.Core.Localization
         }
 
         /// <summary>
-        /// Get Expression from Resources by Key
+        /// Get Expression from Common.Resources by Key
         /// Получить Выражение из Ресурсов по ключу
         /// </summary>
         /// <param name="key">Ключ</param>
