@@ -7,103 +7,84 @@ namespace BusinessLogic.Infrastructure.Services;
 public class MainService : ReactiveObject, IMainService
 {
     private readonly ISearchService _searchService;
-    private ObservableCollection<Prisoner> _prisoners;
-    private readonly Random _rng = new();
-    private Room _room;
     private int _maxSearchAttempt;
+    private Game _game;
+    private ObservableCollection<Game> _games;
+    private int _prisonersCount;
 
     public MainService(ISearchService searchService)
     {
         _searchService = searchService;
+        Games = new ObservableCollection<Game>();
     }
 
-    public Room Room
-    {
-        get => _room;
-        private set => this.RaiseAndSetIfChanged(ref _room, value);
-    }
-
-    public ObservableCollection<Prisoner> Prisoners
-    {
-        get => _prisoners;
-        private set => this.RaiseAndSetIfChanged(ref _prisoners, value);
-    }
 
     /// <summary>
-    /// Собрать комнатау
+    /// Начать новую игру
     /// </summary>
     /// <param name="prisonersCount"></param>
-    public void AssembleARoom(int prisonersCount)
+    public void StartNewGame(int prisonersCount)
     {
-        if (prisonersCount != 0)
-        {
-            UniteThePrisoners(prisonersCount);
-            Shuffle();
+        if (prisonersCount == 0)
+            return;
+        _prisonersCount = prisonersCount;
+        _maxSearchAttempt = _prisonersCount / 2;
 
-            var boxes = new ObservableCollection<Box>();
-            for (int i = 0; i < prisonersCount; i++)
-            {
-                boxes.Add(new Box(i + 1, _prisoners[i].Id));
-            }
-
-            MaxSearchAttempt = boxes.Count / 2;
-            _room = new Room(boxes);
-
-            StartSearch();
-        }
+        StartNewGame();
     }
 
-    public int MaxSearchAttempt
+    public void StartNewGame()
     {
-        get => _maxSearchAttempt;
-        private set => this.RaiseAndSetIfChanged(ref _maxSearchAttempt, value);
+        if (_prisonersCount == 0)
+            return;
+
+        _game = new Game(_games.Count);
+        _games.Add(_game);
+
+        // Build
+        _game.Build(_prisonersCount);
+
+        // Search
+        StartSearch();
     }
 
     /// <summary>
-    /// Собрать заключенных вместе
+    /// Начать поиск
     /// </summary>
-    /// <param name="count"></param>
-    private void UniteThePrisoners(int count)
-    {
-        if (count != 0)
-        {
-            _prisoners = new ObservableCollection<Prisoner>();
-
-            for (int i = 0; i < count; i++)
-            {
-                _prisoners.Add(new Prisoner(i + 1));
-            }
-        }
-    }
-
-
-    /// <summary>
-    /// Перемешать
-    /// </summary>
-    private void Shuffle()
-    {
-        var n = _prisoners.Count;
-        while (n > 1)
-        {
-            n--;
-            var k = _rng.Next(n + 1);
-            (_prisoners[k], _prisoners[n]) = (_prisoners[n], _prisoners[k]);
-        }
-    }
-
     public void StartSearch()
     {
-        foreach (var prisoner in _prisoners)
+        foreach (var prisoner in _game.Prisoners)
         {
-            _searchService.ComeIntoTheRoom(prisoner, _room, _maxSearchAttempt);
+            _searchService.ComeIntoTheRoom(prisoner, _game.Room, _maxSearchAttempt);
         }
+
+        _game.CheckSuccess();
+    }
+
+    /// <summary>
+    /// Текущая игра
+    /// </summary>
+    public Game Game
+    {
+        get => _game;
+        private set => this.RaiseAndSetIfChanged(ref _game, value);
+    }
+
+    /// <summary>
+    /// Список игр
+    /// </summary>
+    public ObservableCollection<Game> Games
+    {
+        get => _games;
+        private set => this.RaiseAndSetIfChanged(ref _games, value);
     }
 }
 
 public interface IMainService
 {
-    public Room Room { get; }
-    public ObservableCollection<Prisoner> Prisoners { get; }
-    public void AssembleARoom(int prisonersCount);
-    public void StartSearch();
+    public Game Game { get; }
+    public ObservableCollection<Game> Games { get; }
+
+    public void StartNewGame(int prisonersCount);
+    public void StartNewGame();
 }

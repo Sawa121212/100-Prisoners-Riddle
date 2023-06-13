@@ -2,6 +2,9 @@
 
 namespace DataDomain;
 
+/// <summary>
+/// Попытка просмотра коробки
+/// </summary>
 public class Attempt : ReactiveObject
 {
     private Box _box;
@@ -11,6 +14,9 @@ public class Attempt : ReactiveObject
         _box = box;
     }
 
+    /// <summary>
+    /// Коробка
+    /// </summary>
     public Box Box
     {
         get => _box;

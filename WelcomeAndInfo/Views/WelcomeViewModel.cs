@@ -10,6 +10,7 @@ using Common.Core.Localization;
 using Common.Core.Regions;
 using Prism.Commands;
 using Prism.Regions;
+using ReactiveUI;
 
 namespace ModuleA.Views
 {
@@ -69,7 +70,7 @@ namespace ModuleA.Views
         public LanguagesEnum AppCultureInfo
         {
             get => _appCultureInfo;
-            set => SetProperty(ref _appCultureInfo, value);
+            set =>  this.RaiseAndSetIfChanged(ref _appCultureInfo, value);
         }
 
         public ICommand GoCommand { get; }

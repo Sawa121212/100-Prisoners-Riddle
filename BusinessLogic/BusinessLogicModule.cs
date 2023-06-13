@@ -24,6 +24,7 @@ namespace BusinessLogic
         {
             // Регистрируем View для навигации по Регионам
             containerRegistry.RegisterForNavigation<StartSettingsView>();
+            containerRegistry.RegisterForNavigation<GamesView>();
         }
 
         public void OnInitialized(IContainerProvider containerProvider)

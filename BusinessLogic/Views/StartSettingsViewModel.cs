@@ -6,6 +6,7 @@ using Common.Core.Regions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using ReactiveUI;
 
 namespace BusinessLogic.Views
 {
@@ -27,8 +28,8 @@ namespace BusinessLogic.Views
 
         private void OnStart()
         {
-            _mainService.AssembleARoom(_prisonersCount);
-            //_regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(StartSettingsView));
+            _mainService.StartNewGame(_prisonersCount);
+            _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(GamesView));
         }
         
         private void OnBack()
@@ -39,7 +40,7 @@ namespace BusinessLogic.Views
         public int PrisonersCount
         {
             get => _prisonersCount;
-            set => SetProperty(ref _prisonersCount, value);
+            set =>  this.RaiseAndSetIfChanged(ref _prisonersCount, value);
         }
 
         public ICommand StartCommand { get; }
