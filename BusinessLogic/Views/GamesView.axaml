@@ -8,6 +8,7 @@
              xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:dataDomain="clr-namespace:DataDomain;assembly=DataDomain"
+             xmlns:circles="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              x:Class="BusinessLogic.Views.GamesView">
 
@@ -77,33 +78,38 @@
                                                HorizontalAlignment="Center" VerticalAlignment="Top"
                                                Margin="0,39,0, 0" />
 
-                                    <Expander Grid.Column="1" Header="Boxes" VerticalAlignment="Center" Margin="5"
+                                    <Expander Grid.Column="1"
+                                              Header="{Binding OpenBoxes.Count, StringFormat=Boxes   x{0}}"
+                                              VerticalAlignment="Center" Margin="5"
                                               BorderBrush="{DynamicResource MaterialDesignSelection}"
                                               BorderThickness="1">
-                                        <WrapPanel Orientation="Horizontal">
-                                            <ItemsControl Items="{Binding OpenBoxes}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate x:DataType="dataDomain:Box">
-                                                        <Panel>
-                                                            <Image Stretch="Fill" Height="64" Width="64"
-                                                                   Source="{StaticResource OpenedBoxDrawingImage}"
+                                        <ItemsControl Items="{Binding OpenBoxes}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate x:DataType="dataDomain:Box">
+                                                    <Panel>
+                                                        <Image Stretch="Fill" Height="64" Width="64"
+                                                               Source="{StaticResource OpenedBoxDrawingImage}"
+                                                               VerticalAlignment="Top"
+                                                               Margin="10,5" />
+                                                        <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
+                                                                   Foreground="Black" FontWeight="Bold"
+                                                                   HorizontalAlignment="Center"
                                                                    VerticalAlignment="Top"
-                                                                   Margin="10,5" />
-                                                            <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
-                                                                       Foreground="Black" FontWeight="Bold"
-                                                                       HorizontalAlignment="Center"
-                                                                       VerticalAlignment="Top"
-                                                                       Margin="0,15,0, 0" />
-                                                            <TextBlock Text="{Binding Id, StringFormat=# {0}}"
-                                                                       Foreground="#231600" FontWeight="Bold"
-                                                                       HorizontalAlignment="Center"
-                                                                       VerticalAlignment="Top"
-                                                                       Margin="0,50,0, 0" />
-                                                        </Panel>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </WrapPanel>
+                                                                   Margin="0,15,0, 0" />
+                                                        <TextBlock Text="{Binding Id, StringFormat=# {0}}"
+                                                                   Foreground="#231600" FontWeight="Bold"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Top"
+                                                                   Margin="0,50,0, 0" />
+                                                    </Panel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </Expander>
                                 </Grid>
                             </Grid>
@@ -111,11 +117,73 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
-            <TabItem Header="Room">
 
+            <!-- Room -->
+            <TabItem Header="Room">
+                <Border Padding="5" BorderThickness="25" BorderBrush="#b4b6b6" Margin="3">
+                    <ItemsControl Items="{Binding SelectedGame.Room.Boxes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="dataDomain:Box">
+                                <Panel>
+                                    <Image Stretch="Fill" Height="64" Width="64"
+                                           Source="{StaticResource OpenedBoxDrawingImage}"
+                                           VerticalAlignment="Top"
+                                           Margin="5,5" />
+                                    <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
+                                               Foreground="Black" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Top"
+                                               Margin="0,15,0, 0" />
+                                    <TextBlock Text="{Binding Id, StringFormat=# {0}}"
+                                               Foreground="#231600" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Top"
+                                               Margin="0,50,0, 0" />
+                                </Panel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
             </TabItem>
             <TabItem Header="Circles">
-
+                <ItemsControl Items="{Binding TestM.ItemsSource}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Styles>
+                        <Style Selector="ItemsControl > ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding X}" />
+                            <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                        </Style>
+                    </ItemsControl.Styles>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="circles:CircleSubject">
+                            <Panel Width="{Binding Width}" Height="{Binding Height}">
+                                <Image Stretch="Fill" Height="64" Width="64"
+                                       Source="{StaticResource OpenedBoxDrawingImage}"
+                                       VerticalAlignment="Top"
+                                       Margin="5,5" />
+                                <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
+                                           Foreground="Black" FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           Margin="0,15,0, 0" />
+                                <TextBlock Text="{Binding Id, StringFormat=# {0}}"
+                                           Foreground="#231600" FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           Margin="0,50,0, 0" />
+                            </Panel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </TabItem>
         </TabControl>
     </Grid>
