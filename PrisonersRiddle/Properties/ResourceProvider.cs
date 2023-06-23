@@ -2,7 +2,7 @@
 using Common.Core.Localization;
 using ModuleA.Properties;
 
-namespace PrisonersRiddle.Properties;
+namespace PrisonersRiddle.Properties{
 
 /// <summary>
 /// Переключатель Языка в ПО
@@ -19,4 +19,4 @@ public class ResourceProvider : IResourceProvider
         // задать начальный язык ПО
         Language.Culture = new CultureInfo("ru");
     }
-}
+} }

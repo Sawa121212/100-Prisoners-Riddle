@@ -1,17 +1,19 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BusinessLogic.Views;
-
-public partial class StartSettingsView : UserControl
+namespace BusinessLogic.Views
 {
-    public StartSettingsView()
-    {
-        InitializeComponent();
-    }
 
-    private void InitializeComponent()
+    public partial class StartSettingsView : UserControl
     {
-        AvaloniaXamlLoader.Load(this);
+        public StartSettingsView()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
     }
 }

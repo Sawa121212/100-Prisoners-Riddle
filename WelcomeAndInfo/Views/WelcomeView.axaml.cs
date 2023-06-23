@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ModuleA.Views;
+namespace ModuleA.Views{
 
 public partial class WelcomeView : UserControl
 {
@@ -14,4 +14,4 @@ public partial class WelcomeView : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-}
+} }

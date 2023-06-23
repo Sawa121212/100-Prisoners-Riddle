@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Common.Core;
 
-namespace PrisonersRiddle;
+namespace PrisonersRiddle{
 
 /// <summary>
 /// Локатор View по ViewModel
@@ -46,4 +46,4 @@ public class ViewLocator : IDataTemplate
     {
         return data is ViewModelBase;
     }
-}
+} }

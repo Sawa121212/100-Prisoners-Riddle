@@ -2,7 +2,7 @@
 using Avalonia.ReactiveUI;
 using System;
 
-namespace PrisonersRiddle;
+namespace PrisonersRiddle{
 
 class Program
 {
@@ -29,4 +29,4 @@ class Program
             })
             .UseSkia()
             .UseReactiveUI();
-}
+} }

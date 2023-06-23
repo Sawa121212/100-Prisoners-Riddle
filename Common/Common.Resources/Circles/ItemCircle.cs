@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using ReactiveUI;
 
-namespace Common.Resources.Circles;
+namespace Common.Resources.Circles { 
 
 public class ItemCircle : ReactiveObject
 {
@@ -56,4 +56,5 @@ public class CircleSubject : ReactiveObject
         get => _height;
         set => this.RaiseAndSetIfChanged(ref _height, value);
     }
+}
 }

@@ -16,7 +16,7 @@ using PrisonersRiddle.Properties;
 using PrisonersRiddle.Views;
 using IResourceProvider = Common.Core.Localization.IResourceProvider;
 
-namespace PrisonersRiddle;
+namespace PrisonersRiddle{
 
 public class App : PrismApplication
 {
@@ -62,7 +62,7 @@ public class App : PrismApplication
     protected override void InitializeShell(IAvaloniaObject shell)
     {
         base.InitializeShell(shell);
-        
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = CreateShell();
@@ -72,7 +72,7 @@ public class App : PrismApplication
             }
         }
     }
-    
+
     /// <summary>
     /// ViewModel Locator. Мы работаем с View, а не с ViewModel!
     /// Ищем ViewModel для View в той же папке, где и View лежит.
@@ -96,4 +96,4 @@ public class App : PrismApplication
 
         ViewModelLocationProvider.SetDefaultViewModelFactory(type => Container.Resolve(type));
     }
-}
+} }

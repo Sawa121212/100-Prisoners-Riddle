@@ -31,6 +31,10 @@ bld/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
+
+# CodeRush cache/options directory
+.cr
+
 # Rider cache/options directory
 .idea
 

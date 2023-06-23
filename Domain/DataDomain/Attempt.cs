@@ -1,25 +1,27 @@
 ﻿using ReactiveUI;
 
-namespace DataDomain;
-
-/// <summary>
-/// Попытка просмотра коробки
-/// </summary>
-public class Attempt : ReactiveObject
+namespace DataDomain
 {
-    private Box _box;
-
-    public Attempt(Box box)
-    {
-        _box = box;
-    }
 
     /// <summary>
-    /// Коробка
+    /// Попытка просмотра коробки
     /// </summary>
-    public Box Box
+    public class Attempt : ReactiveObject
     {
-        get => _box;
-        private set => this.RaiseAndSetIfChanged(ref _box, value);
+        private Box _box;
+
+        public Attempt(Box box)
+        {
+            _box = box;
+        }
+
+        /// <summary>
+        /// Коробка
+        /// </summary>
+        public Box Box
+        {
+            get => _box;
+            private set => this.RaiseAndSetIfChanged(ref _box, value);
+        }
     }
 }

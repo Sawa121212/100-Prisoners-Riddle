@@ -1,61 +1,63 @@
 ﻿using System.Collections.ObjectModel;
 using ReactiveUI;
 
-namespace DataDomain;
-
-/// <summary>
-/// Заключенный
-/// </summary>
-public class Prisoner : ReactiveObject
+namespace DataDomain
 {
-    private int _id;
-    private bool _isNoteFound;
-    private ObservableCollection<Box> _openBoxes;
-
-    public Prisoner(int id)
-    {
-        _id = id;
-        _openBoxes = new ObservableCollection<Box>();
-    }
 
     /// <summary>
-    /// Добавить открытую коробку
+    /// Заключенный
     /// </summary>
-    /// <param name="box"></param>
-    public void AddOpenedBox(Box box)
+    public class Prisoner : ReactiveObject
     {
-        _openBoxes.Add(box);
-    }
+        private int _id;
+        private bool _isNoteFound;
+        private ObservableCollection<Box> _openBoxes;
 
-    /// <summary>
-    /// ID
-    /// </summary>
-    public int Id
-    {
-        get => _id;
-        private set => this.RaiseAndSetIfChanged(ref _id, value);
-    }
+        public Prisoner(int id)
+        {
+            _id = id;
+            _openBoxes = new ObservableCollection<Box>();
+        }
 
-    /// <summary>
-    /// Открытые коробки
-    /// </summary>
-    public ObservableCollection<Box> OpenBoxes
-    {
-        get => _openBoxes;
-        private set => this.RaiseAndSetIfChanged(ref _openBoxes, value);
-    }
+        /// <summary>
+        /// Добавить открытую коробку
+        /// </summary>
+        /// <param name="box"></param>
+        public void AddOpenedBox(Box box)
+        {
+            _openBoxes.Add(box);
+        }
 
-    /// <summary>
-    /// Number
-    /// </summary>
-    public int NumberOfOpenBoxes => _openBoxes.Count;
+        /// <summary>
+        /// ID
+        /// </summary>
+        public int Id
+        {
+            get => _id;
+            private set => this.RaiseAndSetIfChanged(ref _id, value);
+        }
 
-    /// <summary>
-    /// Статус о найденном номере
-    /// </summary>
-    public bool IsNoteFound
-    {
-        get => _isNoteFound;
-        set => this.RaiseAndSetIfChanged(ref _isNoteFound, value);
+        /// <summary>
+        /// Открытые коробки
+        /// </summary>
+        public ObservableCollection<Box> OpenBoxes
+        {
+            get => _openBoxes;
+            private set => this.RaiseAndSetIfChanged(ref _openBoxes, value);
+        }
+
+        /// <summary>
+        /// Number
+        /// </summary>
+        public int NumberOfOpenBoxes => _openBoxes.Count;
+
+        /// <summary>
+        /// Статус о найденном номере
+        /// </summary>
+        public bool IsNoteFound
+        {
+            get => _isNoteFound;
+            set => this.RaiseAndSetIfChanged(ref _isNoteFound, value);
+        }
     }
 }

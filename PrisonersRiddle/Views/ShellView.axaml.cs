@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace PrisonersRiddle.Views;
+namespace PrisonersRiddle.Views{
 
 public partial class ShellView : Window
 {
@@ -18,4 +18,4 @@ public partial class ShellView : Window
     {
         AvaloniaXamlLoader.Load(this);
     }
-}
+} }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using ReactiveUI;
 
-namespace DataDomain;
+namespace DataDomain {
 
 /// <summary>
 /// Поиск
@@ -35,7 +35,7 @@ public class Search : ReactiveObject
         get => _prisoner;
         private set => this.RaiseAndSetIfChanged(ref _prisoner, value);
     }
-    
+
     /// <summary>
     /// Попытки заключенный
     /// </summary>
@@ -52,7 +52,7 @@ public class Search : ReactiveObject
     {
         _attempts.Add(new Attempt(box));
         _prisoner.AddOpenedBox(box);
-        
+
         if (box.PrisonerId.Equals(Id))
         {
             box.IsPrisonerFound = true;
@@ -62,4 +62,4 @@ public class Search : ReactiveObject
 
         return false;
     }
-}
+} }

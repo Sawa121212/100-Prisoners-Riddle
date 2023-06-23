@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BusinessLogic.Views;
+namespace BusinessLogic.Views{
 
 public partial class GamesView : UserControl
 {
@@ -15,4 +15,4 @@ public partial class GamesView : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-}
+} }
