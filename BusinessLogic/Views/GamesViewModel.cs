@@ -1,27 +1,38 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using BusinessLogic.Infrastructure.Services;
 using Common.Core;
 using Common.Resources.Circles;
 using DataDomain;
+using Prism.Commands;
+using Prism.Regions;
 using ReactiveUI;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace BusinessLogic.Views
 {
-
-    public class GamesViewModel : ViewModelBase
+    /// <summary>
+    /// Окно игры
+    /// </summary>
+    public partial class GamesViewModel : ViewModelBase, INavigationAware
     {
         private readonly IMainService _mainService;
         private ObservableCollection<Game> _games;
         private Game _selectedGame;
         private ItemCircle _testM;
+        private int _prisonersCount;
 
-        public GamesViewModel(IMainService mainService)
+        public GamesViewModel(IRegionManager regionManager, IMainService mainService)
         {
+            _regionManager = regionManager;
             _mainService = mainService;
             _games = _mainService.Games;
+            _prisonersCount = 100;
+
             AddNewGameCommand = ReactiveCommand.Create(OnAddNewGame);
+            ShowInformationCommand = new DelegateCommand(OnShowInformation);
+            ShowSettingsCommand = new DelegateCommand(OnShowSettings);
+            ShowAboutCommand = new DelegateCommand(OnShowAbout);
 
             TestM = new ItemCircle();
             var b = new Button() { Content = "Top 20 Left 40" };
@@ -33,7 +44,16 @@ namespace BusinessLogic.Views
         /// </summary>
         private void OnAddNewGame()
         {
-            _mainService.StartNewGame();
+            _mainService.StartNewGame(_prisonersCount);
+        }
+
+        /// <summary>
+        /// Количество заключенных в игре
+        /// </summary>
+        public int PrisonersCount
+        {
+            get => _prisonersCount;
+            set => this.RaiseAndSetIfChanged(ref _prisonersCount, value);
         }
 
         /// <summary>
@@ -55,7 +75,7 @@ namespace BusinessLogic.Views
         }
 
         /// <summary>
-        /// Выбранная игра
+        /// 
         /// </summary>
         public ItemCircle TestM
         {

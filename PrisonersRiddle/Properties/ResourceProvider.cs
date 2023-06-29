@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using Common.Core.Localization;
-using ModuleA.Properties;
 
 namespace PrisonersRiddle.Properties{
 

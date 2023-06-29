@@ -7,7 +7,13 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title}" Width="1280" Height="720">
 
+  <Panel>
+    <Image HorizontalAlignment="Center" VerticalAlignment="Center"
+           Stretch="Fill" Height="128" Width="128"
+           Opacity="0.3"
+           Source="{StaticResource PrisonerDrawingImage}" />
+
     <!-- Content Region -->
     <ContentControl prism:RegionManager.RegionName="{x:Static regions:RegionNameService.ContentRegionName}" />
-    
+  </Panel>
 </Window>

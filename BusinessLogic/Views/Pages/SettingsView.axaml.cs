@@ -1,13 +1,11 @@
-﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BusinessLogic.Views
+namespace BusinessLogic.Views.Pages
 {
-
-    public partial class GamesView : UserControl
+    public partial class SettingsView : UserControl
     {
-        public GamesView()
+        public SettingsView()
         {
             InitializeComponent();
         }

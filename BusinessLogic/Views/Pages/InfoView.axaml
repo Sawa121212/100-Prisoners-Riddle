@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
+             xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
+             xmlns:converters="clr-namespace:Common.Core.Converters;assembly=Common.Core"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:vm="using:BusinessLogic.Views.Pages"
+             x:Class="BusinessLogic.Views.Pages.InfoView">
+
+  <UserControl.Resources>
+    <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+  </UserControl.Resources>
+
+  <styles:Card Padding="10" Margin="15,10">
+    
+    <!-- Language -->
+    <Grid RowDefinitions="Auto, *, Auto" Margin="10,5,10, 10">
+      <styles:Card Grid.Row="0" Padding="0" InsideClipping="True"
+                   Width="159" Height="32" Margin="5"
+                   HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Height="32">
+          <RadioButton Classes="Button" GroupName="Lang"
+                       Content="Русский"
+                       IsChecked="{Binding AppCultureInfo, Converter={StaticResource  EnumToBooleanConverter}, ConverterParameter={x:Static localization:LanguagesEnum.ru}}"
+                       Command="{Binding Path=ChangeLanguageCommand}" />
+          <RadioButton Classes="Button" GroupName="Lang"
+                       Content=" English "
+                       IsChecked="{Binding AppCultureInfo, Converter={StaticResource  EnumToBooleanConverter}, ConverterParameter={x:Static localization:LanguagesEnum.en}}"
+                       Command="{Binding Path=ChangeLanguageCommand}" />
+        </StackPanel>
+      </styles:Card>
+
+      <Grid Grid.Row="1" RowDefinitions="Auto, *">
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="{localization:Localize Title}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="21" FontWeight="Bold" />
+
+        <ScrollViewer Grid.Row="1">
+          <!-- Text -->
+          <Grid RowDefinitions="Auto, Auto, *">
+            <TextBlock Grid.Row="0" Text="{localization:Localize Riddle}" Margin="15"
+                       FontSize="18" TextWrapping="Wrap" />
+
+            <!-- Answer -->
+            <Expander Grid.Row="1" Header="{localization:Localize Answer}" FontSize="16" Padding="3" Margin="5">
+              <TextBlock Text="{localization:Localize AnswerText}"
+                         FontSize="16"
+                         TextWrapping="Wrap" Margin="10" />
+            </Expander>
+          </Grid>
+        </ScrollViewer>
+      </Grid>
+
+      <!-- Back-->
+      <Button Grid.Row="2" Height="42" Command="{Binding GoCommand}" Margin="15,5">
+        <Button.Content>
+          <Grid ColumnDefinitions="Auto, 8, *">
+            <avalonia:MaterialIcon Grid.Column="0" Kind="ChevronLeft" />
+            <TextBlock Grid.Column="2" Text="{localization:Localize MoveBack}" />
+          </Grid>
+        </Button.Content>
+      </Button>
+    </Grid>
+  </styles:Card>
+</UserControl>

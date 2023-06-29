@@ -33,7 +33,7 @@ namespace ModuleA
             containerProvider.Resolve<ILocalizer>().AddResourceManager(new ResourceManager(typeof(Language)));
 
             // Зарегистрировать View к региону. Теперь при запуске ПО View будет привязано сразу
-            _regionManager.RegisterViewWithRegion(RegionNameService.ContentRegionName, typeof(WelcomeView));
+            //_regionManager.RegisterViewWithRegion(RegionNameService.ContentRegionName, typeof(WelcomeView));
         }
     }
 }

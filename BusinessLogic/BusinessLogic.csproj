@@ -1,31 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.18" />  
-        <PackageReference Include="Material.Avalonia" Version="2.5.1" />
-        <PackageReference Include="Prism.Avalonia" Version="8.1.97.2" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.21" />
+    <PackageReference Include="Material.Avalonia" Version="2.5.1" />
+    <PackageReference Include="Prism.Avalonia" Version="8.1.97.1021" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Common.Core\Common.Core.csproj" />
-        <ProjectReference Include="..\Common\Common.Resources\Common.Resources.csproj" />
-        <ProjectReference Include="..\Modules\BusinessLogic.Infrastructure\BusinessLogic.Infrastructure.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Core\Common.Core.csproj" />
+    <ProjectReference Include="..\Common\Common.Resources\Common.Resources.csproj" />
+    <ProjectReference Include="..\Modules\BusinessLogic.Infrastructure\BusinessLogic.Infrastructure.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <EmbeddedResource Update="Properties\Language.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-        </EmbeddedResource>
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Services" />
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Language.Designer.cs">
+      <DependentUpon>Language.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Views\Pages\AboutView.axaml.cs">
+      <DependentUpon>AboutView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\SettingsView.axaml.cs">
+      <DependentUpon>SettingsView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Language.resx">
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Language.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>
