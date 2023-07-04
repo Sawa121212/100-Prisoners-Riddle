@@ -57,7 +57,7 @@
           <Button.Content>
             <Grid ColumnDefinitions="Auto, 8, *">
               <avalonia:MaterialIcon Grid.Column="0" Kind="Cookie" />
-              <TextBlock Grid.Column="2" Text="ABOUT AVALONIAUI" />
+              <TextBlock Grid.Column="2" Text="ABOUT AVALONIA UI" />
             </Grid>
           </Button.Content>
         </Button>

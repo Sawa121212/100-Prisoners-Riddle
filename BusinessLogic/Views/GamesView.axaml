@@ -8,212 +8,268 @@
              xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
              xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:paz="clr-namespace:Avalonia.Controls.PanAndZoom;assembly=Avalonia.Controls.PanAndZoom"
              xmlns:dataDomain="clr-namespace:DataDomain;assembly=DataDomain"
+             xmlns:itemCircle="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
              xmlns:circles="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
              prism:ViewModelLocator.AutoWireViewModel="True"
              x:Class="BusinessLogic.Views.GamesView">
 
-  <Grid RowDefinitions="*, Auto">
-      
-    <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
+    <Grid RowDefinitions="*, Auto">
 
-      <!-- Games -->
-      <styles:Card Grid.Column="0" Margin="5, 3">
-        <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="0,5">
-          <TextBlock Grid.Row="0" Classes="Subtitle1" Text="{localization:Localize Games}" FontWeight="Bold"
-                       VerticalAlignment="Center" Margin="5,0" />
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
 
-          <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto">
-            <TextBlock Grid.Column="0"
-                       Text="{localization:Localize Prisoners}:" 
-                       VerticalAlignment="Center" Margin="5,0" />
-            <TextBox Grid.Column="1" Classes="Subtitle1"
-                     Text="{Binding PrisonersCount}"
-                     FontWeight="Bold" VerticalAlignment="Center"
-                     Margin="3,0" />
-            <Button Grid.Column="2" Content="{localization:Localize Add}"
-                    Command="{Binding AddNewGameCommand}"
-                    Margin="3,1" />
-          </Grid>
+            <!-- Games -->
+            <styles:Card Grid.Column="0" Margin="5, 3">
+                <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="0,5">
+                    <TextBlock Grid.Row="0" Classes="Subtitle1" Text="{localization:Localize Games}" FontWeight="Bold"
+                               VerticalAlignment="Center" Margin="5,0" />
 
-          <Separator Grid.Row="2" />
+                    <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto">
+                        <TextBlock Grid.Column="0"
+                                   Text="{localization:Localize Prisoners}"
+                                   VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Column="1" Classes="Subtitle1"
+                                 Text="{Binding PrisonersCount}"
+                                 FontWeight="Bold" VerticalAlignment="Center"
+                                 Margin="3,0" />
+                        <Button Grid.Column="2" Content="{localization:Localize Add}"
+                                Command="{Binding AddNewGameCommand}"
+                                Margin="3,1" />
+                    </Grid>
 
-          <!-- Games -->
-          <ListBox Grid.Row="3" Items="{Binding Games}"
-                   SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                   ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5">
-            <ListBox.ItemTemplate>
-              <DataTemplate x:DataType="dataDomain:Game">
-                <Panel Margin="3,0">
-                  <TextBlock Text="{Binding Description}"
-                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                             Margin="3,5" />
-                  <Border BorderThickness="2" BorderBrush="Green"
-                          CornerRadius="4"
-                          IsVisible="{Binding IsSuccess}" />
-                  <Border BorderThickness="2" BorderBrush="{DynamicResource ValidationErrorBrush}"
-                          CornerRadius="4"
-                          IsVisible="{Binding !IsSuccess}" />
-                </Panel>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </Grid>
-      </styles:Card>
+                    <Separator Grid.Row="2" />
 
-      <TabControl Grid.Column="1" Margin="5,5">
-
-        <!-- Prisoners -->
-        <TabItem Header="{localization:Localize Prisoners}">
-          <ListBox Items="{Binding SelectedGame.Prisoners}"
-                   ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5,5,5">
-            <ListBox.ItemTemplate>
-              <DataTemplate x:DataType="dataDomain:Prisoner">
-                <Grid>
-                  <Border BorderThickness="2" BorderBrush="Green"
-                          CornerRadius="4"
-                          IsVisible="{Binding IsNoteFound}" />
-                  <Border BorderThickness="2" BorderBrush="{DynamicResource ValidationErrorBrush}"
-                          CornerRadius="4"
-                          IsVisible="{Binding !IsNoteFound}" />
-
-                  <!-- Информация о заказчике -->
-                  <Grid ColumnDefinitions="Auto,*">
-                    <Image Grid.Column="0"
-                           Stretch="Fill" Height="64" Width="64"
-                           Source="{StaticResource PrisonerDrawingImage}"
-                           VerticalAlignment="Top"
-                           Margin="10,5" />
-                    <TextBlock Grid.Column="0" Classes="Headline6"
-                               Text="{Binding Id, StringFormat=# {0}}"
-                               Foreground="White" FontWeight="Bold"
-                               HorizontalAlignment="Center" VerticalAlignment="Top"
-                               Margin="0,39,0, 0" />
-
-                    <Expander Grid.Column="1"
-                              Header="{Binding OpenBoxes.Count, StringFormat=Boxes   x{0}}"
-                              VerticalAlignment="Center" Margin="5"
-                              BorderBrush="{DynamicResource MaterialDesignSelection}"
-                              BorderThickness="1">
-                      <ItemsControl Items="{Binding OpenBoxes}">
-                        <ItemsControl.ItemsPanel>
-                          <ItemsPanelTemplate>
-                            <WrapPanel />
-                          </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                          <DataTemplate x:DataType="dataDomain:Box">
-                            <Panel>
-                              <Image Stretch="Fill" Height="64" Width="64"
-                                     Source="{StaticResource OpenedBoxDrawingImage}"
-                                     VerticalAlignment="Top"
-                                     Margin="10,5" />
-                              <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
-                                         Foreground="Black" FontWeight="Bold"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Top"
-                                         Margin="0,15,0, 0" />
-                              <TextBlock Text="{Binding Id, StringFormat=# {0}}"
-                                         Foreground="#231600" FontWeight="Bold"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Top"
-                                         Margin="0,50,0, 0" />
-                            </Panel>
-                          </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                      </ItemsControl>
-                    </Expander>
-                  </Grid>
+                    <!-- Games -->
+                    <ListBox Grid.Row="3" Items="{Binding Games}"
+                             SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="dataDomain:Game">
+                                <Panel Margin="3,0">
+                                    <TextBlock Text="{Binding Description}"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Margin="3,5" />
+                                    <Border BorderThickness="2" BorderBrush="Green"
+                                            CornerRadius="4"
+                                            IsVisible="{Binding IsSuccess}" />
+                                    <Border BorderThickness="2" BorderBrush="{DynamicResource ValidationErrorBrush}"
+                                            CornerRadius="4"
+                                            IsVisible="{Binding !IsSuccess}" />
+                                </Panel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </TabItem>
+            </styles:Card>
 
-        <!-- Room -->
-        <TabItem Header="Room">
-          <Border Padding="5" BorderThickness="25" BorderBrush="#b4b6b6" Margin="3">
-            <ItemsControl Items="{Binding SelectedGame.Room.Boxes}">
-              <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <WrapPanel />
-                </ItemsPanelTemplate>
-              </ItemsControl.ItemsPanel>
-              <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="dataDomain:Box">
-                  <Panel>
-                    <Image Stretch="Fill" Height="64" Width="64"
-                           Source="{StaticResource OpenedBoxDrawingImage}"
-                           VerticalAlignment="Top"
-                           Margin="5,5" />
-                    <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
-                               Foreground="Black" FontWeight="Bold"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Top"
-                               Margin="0,15,0, 0" />
-                    <TextBlock Text="{Binding Id, StringFormat=# {0}}"
-                               Foreground="#231600" FontWeight="Bold"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Top"
-                               Margin="0,50,0, 0" />
-                  </Panel>
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-          </Border>
-        </TabItem>
-        <TabItem Header="Circles">
-          <ItemsControl Items="{Binding TestM.ItemsSource}">
-            <ItemsControl.ItemsPanel>
-              <ItemsPanelTemplate>
-                <Canvas />
-              </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.Styles>
-              <Style Selector="ItemsControl > ContentPresenter">
-                <Setter Property="Canvas.Left" Value="{Binding X}" />
-                <Setter Property="Canvas.Top" Value="{Binding Y}" />
-              </Style>
-            </ItemsControl.Styles>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate DataType="circles:CircleSubject">
-                <Panel Width="{Binding Width}" Height="{Binding Height}">
-                  <Image Stretch="Fill" Height="64" Width="64"
-                         Source="{StaticResource OpenedBoxDrawingImage}"
-                         VerticalAlignment="Top"
-                         Margin="5,5" />
-                  <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
-                             Foreground="Black" FontWeight="Bold"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Top"
-                             Margin="0,15,0, 0" />
-                  <TextBlock Text="{Binding Id, StringFormat=# {0}}"
-                             Foreground="#231600" FontWeight="Bold"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Top"
-                             Margin="0,50,0, 0" />
-                </Panel>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-        </TabItem>
-      </TabControl>
+            <TabControl Grid.Column="1" Margin="5,5">
+
+                <!-- Prisoners -->
+                <TabItem Header="{localization:Localize Prisoners}">
+                    <ListBox Items="{Binding SelectedGame.Prisoners}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5,5,5">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="dataDomain:Prisoner">
+                                <Grid>
+                                    <Border BorderThickness="2" BorderBrush="Green"
+                                            CornerRadius="4"
+                                            IsVisible="{Binding IsNoteFound}" />
+                                    <Border BorderThickness="2" BorderBrush="{DynamicResource ValidationErrorBrush}"
+                                            CornerRadius="4"
+                                            IsVisible="{Binding !IsNoteFound}" />
+
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Image Grid.Column="0"
+                                               Stretch="Fill" Height="64" Width="64"
+                                               Source="{StaticResource PrisonerDrawingImage}"
+                                               VerticalAlignment="Top"
+                                               Margin="10,5" />
+                                        <TextBlock Grid.Column="0" Classes="Headline6"
+                                                   Text="{Binding Id, StringFormat=# {0}}"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Top"
+                                                   Margin="0,39,0, 0" />
+
+                                        <Expander Grid.Column="1"
+                                                  Header="{Binding OpenBoxes.Count, StringFormat=Boxes   x{0}}"
+                                                  VerticalAlignment="Center" Margin="5"
+                                                  BorderBrush="{DynamicResource MaterialDesignSelection}"
+                                                  BorderThickness="1">
+                                            <ItemsControl Items="{Binding OpenBoxes}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="dataDomain:Box">
+                                                        <Panel>
+                                                            <Image Stretch="Fill" Height="64" Width="64"
+                                                                   Source="{StaticResource OpenedBoxDrawingImage}"
+                                                                   VerticalAlignment="Top"
+                                                                   Margin="10,5" />
+                                                            <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
+                                                                       Foreground="Black" FontWeight="Bold"
+                                                                       HorizontalAlignment="Center"
+                                                                       VerticalAlignment="Top"
+                                                                       Margin="0,15,0, 0" />
+                                                            <TextBlock Text="{Binding Id, StringFormat=# {0}}"
+                                                                       Foreground="#231600" FontWeight="Bold"
+                                                                       HorizontalAlignment="Center"
+                                                                       VerticalAlignment="Top"
+                                                                       Margin="0,50,0, 0" />
+                                                        </Panel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Expander>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+
+                <!-- Room -->
+                <TabItem Header="Room">
+                    <Border Padding="5" BorderThickness="25" BorderBrush="#b4b6b6" Margin="3">
+                        <ItemsControl Items="{Binding SelectedGame.Room.Boxes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="dataDomain:Box">
+                                    <Panel>
+                                        <Image Stretch="Fill" Height="64" Width="64"
+                                               Source="{StaticResource OpenedBoxDrawingImage}"
+                                               VerticalAlignment="Top"
+                                               Margin="5,5" />
+                                        <TextBlock Text="{Binding PrisonerId, StringFormat=~{0}}"
+                                                   Foreground="Black" FontWeight="Bold"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Top"
+                                                   Margin="0,15,0, 0" />
+                                        <TextBlock Text="{Binding Id, StringFormat=# {0}}"
+                                                   Foreground="#231600" FontWeight="Bold"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Top"
+                                                   Margin="0,50,0, 0" />
+                                    </Panel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </TabItem>
+
+                <!-- Circles -->
+                <TabItem Header="Circles" IsSelected="True">
+                    <Grid ColumnDefinitions="Auto, *">
+
+                        <!-- Circle list -->
+                        <styles:Card Grid.Column="0" Margin="0, 3">
+                            <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="0,5">
+                                <TextBlock Grid.Row="0" Classes="Subtitle1" Text="Circles"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center" Margin="5,0" />
+
+                                <Separator Grid.Row="1" />
+
+                                <ListBox Grid.Row="2"
+                                         Name="CirclesListBox"
+                                         Items="{Binding SelectedGame.ItemCircle}"
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5,5,5">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="itemCircle:ItemCircle">
+                                            <Grid>
+                                                <Grid ColumnDefinitions="*,Auto, Auto">
+
+                                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                        Kind="VectorCircle"
+                                                        Margin="3 0" />
+
+                                                    <TextBlock Grid.Column="1"
+                                                               Text="{Binding Description}"
+                                                               VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="3"
+                                                               Text="{Binding ItemsSource.Count, StringFormat= items:{0}}"
+                                                               VerticalAlignment="Center" Margin="3,0" />
+                                                </Grid>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </styles:Card>
+
+                        <!-- ItemsSource -->
+                        <paz:ZoomBorder Grid.Column="1" Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
+                                        Background="Transparent" ClipToBounds="True" Focusable="True"
+                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                        IsVisible="{Binding SelectedItem, ElementName=CirclesListBox, Converter={x:Static ObjectConverters.IsNotNull}}">
+                            <styles:Card Margin="5, 3"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                                         Width="{Binding SelectedItem.Width, ElementName=CirclesListBox}"
+                                         Height="{Binding SelectedItem.Height, ElementName=CirclesListBox}"
+                                         Padding="0">
+                                <ItemsControl Items="{Binding SelectedItem.ItemsSource, ElementName=CirclesListBox}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Canvas />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.Styles>
+                                        <Style Selector="ItemsControl > ContentPresenter">
+                                            <Setter Property="Canvas.Left" Value="{Binding X}" />
+                                            <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                                        </Style>
+                                    </ItemsControl.Styles>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="circles:CircleSubject">
+                                            <Panel 
+                                                Width="{Binding Width}" 
+                                                Height="{Binding Height}">
+                                                <Image Stretch="Fill" Height="64" Width="64"
+                                                       Source="{StaticResource OpenedBoxDrawingImage}"
+                                                       VerticalAlignment="Top"
+                                                       Margin="5,5" />
+                                                <TextBlock Text="{Binding Content.PrisonerId, StringFormat=~{0}}"
+                                                           Foreground="Black" FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Top"
+                                                           Margin="0,15,0, 0" />
+                                                <TextBlock Text="{Binding Content.Id, StringFormat=# {0}}"
+                                                           Foreground="#231600" FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Top"
+                                                           Margin="0,50,0, 0" />
+                                            </Panel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </styles:Card>
+                        </paz:ZoomBorder>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <styles:Card Grid.Row="1" Margin="5,0,5,5">
+            <StackPanel Spacing="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Classes="Flat"
+                        Content="{materialIcons:MaterialIconExt Kind=Information}"
+                        Command="{Binding ShowInformationCommand}" />
+                <Button Classes="Flat"
+                        Content="{materialIcons:MaterialIconExt Kind=Settings}"
+                        Command="{Binding ShowSettingsCommand}" />
+                <Button Classes="Flat"
+                        Content="{materialIcons:MaterialIconExt Kind=Code}"
+                        Command="{Binding ShowAboutCommand}" />
+            </StackPanel>
+        </styles:Card>
     </Grid>
-
-    <styles:Card Grid.Row="1" Margin="5,0,5,5">
-      <StackPanel Spacing="3" 
-                  Orientation="Horizontal"
-                  HorizontalAlignment="Right">
-        <Button Classes="Flat"
-                Content="{materialIcons:MaterialIconExt Kind=Information}" 
-                Command="{Binding ShowInformationCommand}"/>
-        <Button Classes="Flat"
-                Content="{materialIcons:MaterialIconExt Kind=Settings}"
-                Command="{Binding ShowSettingsCommand}"/>
-        <Button Classes="Flat"
-                Content="{materialIcons:MaterialIconExt Kind=Code}"
-                Command="{Binding ShowAboutCommand}"/>
-      </StackPanel>
-    </styles:Card>
-  </Grid>
 </UserControl>

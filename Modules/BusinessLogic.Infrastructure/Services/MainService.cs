@@ -46,12 +46,14 @@ namespace BusinessLogic.Infrastructure.Services
 
             // Search
             StartSearch();
+
+            _game.BuildCircles();
         }
 
         /// <summary>
         /// Начать поиск
         /// </summary>
-        public void StartSearch()
+        private void StartSearch()
         {
             foreach (var prisoner in _game.Prisoners)
             {

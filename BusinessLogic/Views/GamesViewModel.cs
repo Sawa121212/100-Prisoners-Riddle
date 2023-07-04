@@ -36,7 +36,9 @@ namespace BusinessLogic.Views
 
             TestM = new ItemCircle();
             var b = new Button() { Content = "Top 20 Left 40" };
-            TestM.ItemsSource.Add(new CircleSubject() { Width = 120, Height = 50, Content = b, Y = 20, X = 40 });
+            var x = new Box(101, 333);
+            TestM.ItemsSource.Add(new CircleSubject() { Width = 64, Height = 64, Content = x, Y = 20, X = 40 });
+            TestM.ItemsSource.Add(new CircleSubject() { Width = 64, Height = 64, Content = x, Y = 50, X = 150 });
         }
 
         /// <summary>
