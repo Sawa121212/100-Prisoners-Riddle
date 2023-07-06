@@ -10,6 +10,8 @@
     <PackageReference Include="Avalonia" Version="0.10.21" />
     <PackageReference Include="Avalonia.Controls.PanAndZoom" Version="10.14.0" />
     <PackageReference Include="Material.Avalonia" Version="2.5.1" />
+    <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.19" />
+    <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.19" />
     <PackageReference Include="Prism.Avalonia" Version="8.1.97.1021" />
   </ItemGroup>
 

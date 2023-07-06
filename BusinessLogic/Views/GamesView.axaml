@@ -9,9 +9,12 @@
              xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:paz="clr-namespace:Avalonia.Controls.PanAndZoom;assembly=Avalonia.Controls.PanAndZoom"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              xmlns:dataDomain="clr-namespace:DataDomain;assembly=DataDomain"
              xmlns:itemCircle="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
              xmlns:circles="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
+             xmlns:behaviors="clr-namespace:BusinessLogic.Behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True"
              x:Class="BusinessLogic.Views.GamesView">
 
@@ -169,7 +172,7 @@
                     <Grid ColumnDefinitions="Auto, *">
 
                         <!-- Circle list -->
-                        <styles:Card Grid.Column="0" Margin="0, 3">
+                        <styles:Card Grid.Column="0" MinWidth="140" Margin="0, 3">
                             <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="0,5">
                                 <TextBlock Grid.Row="0" Classes="Subtitle1" Text="Circles"
                                            FontWeight="Bold"
@@ -195,20 +198,30 @@
                                                                VerticalAlignment="Center" />
                                                     <TextBlock Grid.Column="3"
                                                                Text="{Binding ItemsSource.Count, StringFormat= items:{0}}"
-                                                               VerticalAlignment="Center" Margin="3,0" />
+                                                               VerticalAlignment="Center" Margin="5,0, 0, 0" />
                                                 </Grid>
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
+
+                                    <i:Interaction.Behaviors>
+                                        <ia:EventTriggerBehavior EventName="SelectionChanged">
+                                            <ia:InvokeCommandAction
+                                                Command="{Binding DataContext.SelectedCircleItemChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" />
+                                        </ia:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
                                 </ListBox>
                             </Grid>
                         </styles:Card>
 
                         <!-- ItemsSource -->
-                        <paz:ZoomBorder Grid.Column="1" Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
-                                        Background="Transparent" ClipToBounds="True" Focusable="True"
+                        <paz:ZoomBorder Grid.Column="1" Name="ZoomBorder" Stretch="None"
+                                        ZoomSpeed="1.1" ClipToBounds="True"
+                                        Background="Transparent"
+                                        MinZoomX="0.01" MinZoomY="0.01" MaxZoomX="200" MaxZoomY="200"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                         IsVisible="{Binding SelectedItem, ElementName=CirclesListBox, Converter={x:Static ObjectConverters.IsNotNull}}">
+
                             <styles:Card Margin="5, 3"
                                          HorizontalAlignment="Center" VerticalAlignment="Center"
                                          Width="{Binding SelectedItem.Width, ElementName=CirclesListBox}"
@@ -228,8 +241,8 @@
                                     </ItemsControl.Styles>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate DataType="circles:CircleSubject">
-                                            <Panel 
-                                                Width="{Binding Width}" 
+                                            <Panel
+                                                Width="{Binding Width}"
                                                 Height="{Binding Height}">
                                                 <Image Stretch="Fill" Height="64" Width="64"
                                                        Source="{StaticResource OpenedBoxDrawingImage}"
@@ -250,6 +263,10 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </styles:Card>
+
+                            <i:Interaction.Behaviors>
+                                <behaviors:ScaleToFitBehavior />
+                            </i:Interaction.Behaviors>
                         </paz:ZoomBorder>
                     </Grid>
                 </TabItem>

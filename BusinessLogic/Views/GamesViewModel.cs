@@ -33,12 +33,14 @@ namespace BusinessLogic.Views
             ShowInformationCommand = new DelegateCommand(OnShowInformation);
             ShowSettingsCommand = new DelegateCommand(OnShowSettings);
             ShowAboutCommand = new DelegateCommand(OnShowAbout);
+            //bool? x = new Signal<bool?>();
 
-            TestM = new ItemCircle();
-            var b = new Button() { Content = "Top 20 Left 40" };
-            var x = new Box(101, 333);
-            TestM.ItemsSource.Add(new CircleSubject() { Width = 64, Height = 64, Content = x, Y = 20, X = 40 });
-            TestM.ItemsSource.Add(new CircleSubject() { Width = 64, Height = 64, Content = x, Y = 50, X = 150 });
+            SelectedCircleItemChangedCommand = new DelegateCommand(OnSelectedCircleItemChanged);
+        }
+
+        private void OnSelectedCircleItemChanged()
+        {
+            
         }
 
         /// <summary>
@@ -76,15 +78,7 @@ namespace BusinessLogic.Views
             set => this.RaiseAndSetIfChanged(ref _selectedGame, value);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ItemCircle TestM
-        {
-            get => _testM;
-            set => this.RaiseAndSetIfChanged(ref _testM, value);
-        }
-
         public ICommand AddNewGameCommand { get; }
+        public ICommand SelectedCircleItemChangedCommand { get; }
     }
 }
