@@ -2,6 +2,7 @@
 using BusinessLogic.Properties;
 using BusinessLogic.Views;
 using BusinessLogic.Views.Pages;
+using BusinessLogic.Views.Report;
 using Common.Core.Localization;
 using Common.Core.Regions;
 using Prism.Ioc;
@@ -29,6 +30,7 @@ namespace BusinessLogic
             containerRegistry.RegisterForNavigation<InfoView>();
             containerRegistry.RegisterForNavigation<SettingsView>();
             containerRegistry.RegisterForNavigation<AboutView>();
+            containerRegistry.RegisterForNavigation<ReportView>();
         }
 
         public void OnInitialized(IContainerProvider containerProvider)

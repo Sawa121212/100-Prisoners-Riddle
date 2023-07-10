@@ -11,16 +11,19 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source='avares://Common.Resources/Geometries.axaml'/>
+                <ResourceInclude Source='avares://Common.Resources/Geometries.axaml' />
                 <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
+
     </Application.Resources>
 
-    <!-- Используем стиль Material.Avalonia -->
     <Application.Styles>
+        <!-- Используем стиль Material.Avalonia -->
         <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
+
+        <!-- Add the line below to get OxyPlot UI theme applied. -->
+        <StyleInclude Source="avares://OxyPlot.Avalonia/Themes/Default.xaml" />
     </Application.Styles>
 </Application>

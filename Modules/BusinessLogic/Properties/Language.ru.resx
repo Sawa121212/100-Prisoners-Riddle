@@ -156,4 +156,7 @@
   <data name="Prisoners" xml:space="preserve">
     <value>Заключенные</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Отчет</value>
+  </data>
 </root>

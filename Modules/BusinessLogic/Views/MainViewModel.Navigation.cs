@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Views.Pages;
+using BusinessLogic.Views.Report;
 using Common.Core.Regions;
 using Prism.Commands;
 using Prism.Regions;
@@ -35,6 +36,14 @@ namespace BusinessLogic.Views
             _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(AboutView));
         }
 
+        /// <summary>
+        /// Показать отчет по играм
+        /// </summary>
+        private void OnShowReport()
+        {
+            _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(ReportView));
+        }
+
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             _journal = navigationContext.NavigationService.Journal;
@@ -50,9 +59,11 @@ namespace BusinessLogic.Views
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-        } 
+        }
+
         public DelegateCommand ShowInformationCommand { get; }
         public DelegateCommand ShowSettingsCommand { get; }
         public DelegateCommand ShowAboutCommand { get; }
+        public DelegateCommand ShowReportCommand { get; }
     }
 }

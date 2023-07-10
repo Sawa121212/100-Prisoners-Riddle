@@ -18,6 +18,7 @@
     <PackageReference Include="Material.Avalonia" Version="2.5.1" />
     <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.19" />
     <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.19" />
+    <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0" />
     <PackageReference Include="Prism.Avalonia" Version="8.1.97.1021" />
   </ItemGroup>
 
@@ -41,6 +42,9 @@
     </Compile>
     <Compile Update="Views\Pages\SettingsView.axaml.cs">
       <DependentUpon>SettingsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Report\ReportView.axaml.cs">
+      <DependentUpon>ReportView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

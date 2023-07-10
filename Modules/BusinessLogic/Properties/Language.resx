@@ -157,4 +157,7 @@ By starting with their own number, the prisoner guarantees they are on the uniqu
   <data name="Prisoners" xml:space="preserve">
     <value>Prisoners</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
 </root>

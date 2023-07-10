@@ -24,7 +24,7 @@
 
                 <!-- Games -->
                 <styles:Card Grid.Column="0" Margin="5, 3">
-                    <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="0,5">
+                    <Grid RowDefinitions="Auto, Auto, Auto, *, Auto" Margin="0,5">
                         <TextBlock Grid.Row="0" Classes="Subtitle1" Text="{localization:Localize Games}"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center" Margin="5,0" />
@@ -81,6 +81,18 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+
+                      <!-- Report Button -->
+                      <Button Grid.Row="4" Command="{Binding ShowReportCommand}"
+                                IsEnabled="{Binding Games.Count}"
+                                Margin="0,3, 0,0">
+                            <Button.Content>
+                                <Grid ColumnDefinitions="Auto, 8, *">
+                                    <avalonia:MaterialIcon Grid.Column="0" Kind="ChartBar" />
+                                    <TextBlock Grid.Column="2" Text="{localization:Localize Report}" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
                     </Grid>
                 </styles:Card>
 
@@ -311,13 +323,13 @@
         </Grid>
         <Panel Background="{DynamicResource MaterialDesignSelection}"
                Opacity="0.5"
-               IsVisible="{Binding IsBusy, Mode=OneWay}"/>
-        <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, Auto, *">
+               IsVisible="{Binding IsBusy, Mode=OneWay}" />
+        <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, Auto, *"
+              IsVisible="{Binding IsBusy, Mode=OneWay}">
             <styles:Card Grid.Row="1" Grid.Column="1"
                          Padding="15">
-                <ProgressBar Classes="Circle" 
-                             IsIndeterminate="True"
-                             IsVisible="{Binding IsBusy, Mode=OneWay}"/>
+                <ProgressBar Classes="Circle"
+                             IsIndeterminate="True" />
             </styles:Card>
         </Grid>
     </Panel>

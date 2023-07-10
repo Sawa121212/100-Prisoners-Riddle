@@ -32,20 +32,14 @@ namespace BusinessLogic.Views
             _regionManager = regionManager;
             _mainService = mainService;
             _games = _mainService.Games;
-            _gamesCount = 1;
+            _gamesCount = 100;
             _prisonersCount = 100;
 
             AddNewGameCommand = ReactiveCommand.Create(OnAddNewGame);
             ShowInformationCommand = new DelegateCommand(OnShowInformation);
             ShowSettingsCommand = new DelegateCommand(OnShowSettings);
             ShowAboutCommand = new DelegateCommand(OnShowAbout);
-            //bool? x = new Signal<bool?>();
-
-            SelectedCircleItemChangedCommand = new DelegateCommand(OnSelectedCircleItemChanged);
-        }
-
-        private void OnSelectedCircleItemChanged()
-        {
+            ShowReportCommand = new DelegateCommand(OnShowReport);
         }
 
         /// <summary>
@@ -102,7 +96,7 @@ namespace BusinessLogic.Views
         }
 
         /// <summary>
-        /// Выбранная игра
+        /// Панель 
         /// </summary>
         public bool IsBusy
         {
