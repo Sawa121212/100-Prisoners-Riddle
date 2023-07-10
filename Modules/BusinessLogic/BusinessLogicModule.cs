@@ -1,5 +1,4 @@
 ﻿using System.Resources;
-
 using BusinessLogic.Properties;
 using BusinessLogic.Views;
 using BusinessLogic.Views.Pages;
@@ -26,7 +25,7 @@ namespace BusinessLogic
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Регистрируем View для навигации по Регионам
-            containerRegistry.RegisterForNavigation<GamesView>();
+            containerRegistry.RegisterForNavigation<MainView>();
             containerRegistry.RegisterForNavigation<InfoView>();
             containerRegistry.RegisterForNavigation<SettingsView>();
             containerRegistry.RegisterForNavigation<AboutView>();
@@ -38,7 +37,7 @@ namespace BusinessLogic
             containerProvider.Resolve<ILocalizer>().AddResourceManager(new ResourceManager(typeof(Language)));
 
             // Зарегистрировать View к региону.Теперь при запуске ПО View будет привязано сразу
-            _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(GamesView));
+            _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(MainView));
         }
     }
 }

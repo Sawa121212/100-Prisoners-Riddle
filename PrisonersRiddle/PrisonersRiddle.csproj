@@ -23,10 +23,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Common.Core\Common.Core.csproj" />
+      <ProjectReference Include="..\Common\Common.Core\Common.Core.csproj" />
       <ProjectReference Include="..\Common\Common.Resources\Common.Resources.csproj" />
       <ProjectReference Include="..\Modules\BusinessLogic.Infrastructure\BusinessLogic.Infrastructure.csproj" />
-      <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+      <ProjectReference Include="..\Modules\BusinessLogic\BusinessLogic.csproj" />
     </ItemGroup>
 
     <ItemGroup>

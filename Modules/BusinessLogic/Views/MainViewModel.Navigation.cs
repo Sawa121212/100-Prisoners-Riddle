@@ -6,12 +6,10 @@ using Prism.Regions;
 namespace BusinessLogic.Views
 {
 
-    public partial class GamesViewModel
+    public partial class MainViewModel
     {
         private readonly IRegionManager _regionManager;
         private IRegionNavigationJournal _journal;
-
-        
 
         /// <summary>
         /// Показать информацию о задаче

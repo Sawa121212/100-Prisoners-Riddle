@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using BusinessLogic.Infrastructure.Interfaces;
 using DataDomain;
 using ReactiveUI;
 
 namespace BusinessLogic.Infrastructure.Services
 {
-
     public class SearchService : ReactiveObject, ISearchService
     {
         private ObservableCollection<Search> _searches;
@@ -14,29 +14,25 @@ namespace BusinessLogic.Infrastructure.Services
             _searches = new ObservableCollection<Search>();
         }
 
+        /// <inheritdoc />
         public ObservableCollection<Search> Searches
         {
             get => _searches;
             private set => this.RaiseAndSetIfChanged(ref _searches, value);
         }
 
-        /// <summary>
-        /// Войти в комнату
-        /// </summary>
-        /// <param name="prisoner"></param>
-        /// <param name="room"></param>
-        /// <param name="maxSearchAttempt"></param>
+        /// <inheritdoc />
         public void ComeIntoTheRoom(Prisoner prisoner, Room room, int maxSearchAttempt)
         {
-            var boxes = room.Boxes;
+            ObservableCollection<Box> boxes = room.Boxes;
 
             // новый поиск
-            var search = new Search(prisoner);
+            Search search = new(prisoner);
 
-            var index = prisoner.Id;
+            int index = prisoner.Id;
             for (int i = 0; i < maxSearchAttempt; i++)
             {
-                var box = boxes[index - 1];
+                Box box = boxes[index - 1];
                 search.OpenBox(box);
 
                 if (prisoner.IsNoteFound)
@@ -52,11 +48,5 @@ namespace BusinessLogic.Infrastructure.Services
 
             _searches.Add(search);
         }
-    }
-
-    public interface ISearchService
-    {
-        public ObservableCollection<Search> Searches { get; }
-        void ComeIntoTheRoom(Prisoner prisoner, Room room, int maxSearchAttempt);
     }
 }

@@ -13,9 +13,10 @@ using Prism.Modularity;
 using Prism.Mvvm;
 using PrisonersRiddle.Properties;
 using PrisonersRiddle.Views;
-using IResourceProvider = Common.Core.Localization.IResourceProvider;
 using System.Resources;
 using Avalonia.Threading;
+using BusinessLogic.Infrastructure.Interfaces;
+using IResourceProvider = Common.Core.Localization.IResourceProvider;
 
 namespace PrisonersRiddle
 {
@@ -65,7 +66,7 @@ namespace PrisonersRiddle
             base.InitializeShell(shell);
 
             // Добавим локализацию
-            var localizer = Container.Resolve<ILocalizer>();
+            ILocalizer? localizer = Container.Resolve<ILocalizer>();
             localizer.AddResourceManager(new ResourceManager(typeof(Language)));
 
             

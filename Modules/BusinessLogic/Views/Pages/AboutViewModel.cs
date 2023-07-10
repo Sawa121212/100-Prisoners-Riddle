@@ -1,21 +1,16 @@
-﻿using System.Globalization;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Threading;
 using Common.Core;
 using Common.Core.Extensions;
 using Common.Core.Localization;
-using Common.Core.Regions;
 using Prism.Commands;
 using Prism.Regions;
 using Avalonia.Media;
-using Material.Colors;
 using Material.Styles.Themes;
 using Material.Styles.Themes.Base;
 using ReactiveUI;
-using Avalonia;
-using Common.Extensions;
 using System.Diagnostics;
 
 namespace BusinessLogic.Views.Pages

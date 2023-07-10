@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using BusinessLogic.Infrastructure.Interfaces;
 using DataDomain;
 using ReactiveUI;
 
@@ -18,11 +19,7 @@ namespace BusinessLogic.Infrastructure.Services
             Games = new ObservableCollection<Game>();
         }
 
-
-        /// <summary>
-        /// Начать новую игру
-        /// </summary>
-        /// <param name="prisonersCount"></param>
+        /// <inheritdoc />
         public void StartNewGame(int prisonersCount)
         {
             if (prisonersCount == 0)
@@ -33,6 +30,7 @@ namespace BusinessLogic.Infrastructure.Services
             StartNewGame();
         }
 
+        /// <inheritdoc />
         public void StartNewGame()
         {
             if (_prisonersCount == 0)
@@ -63,31 +61,18 @@ namespace BusinessLogic.Infrastructure.Services
             _game.CheckSuccess();
         }
 
-        /// <summary>
-        /// Текущая игра
-        /// </summary>
+        /// <inheritdoc />
         public Game Game
         {
             get => _game;
             private set => this.RaiseAndSetIfChanged(ref _game, value);
         }
 
-        /// <summary>
-        /// Список игр
-        /// </summary>
+        /// <inheritdoc />
         public ObservableCollection<Game> Games
         {
             get => _games;
             private set => this.RaiseAndSetIfChanged(ref _games, value);
         }
-    }
-
-    public interface IMainService
-    {
-        public Game Game { get; }
-        public ObservableCollection<Game> Games { get; }
-
-        public void StartNewGame(int prisonersCount);
-        public void StartNewGame();
     }
 }

@@ -5,9 +5,9 @@ using Avalonia.Markup.Xaml;
 namespace BusinessLogic.Views
 {
 
-    public partial class GamesView : UserControl
+    public partial class MainView : UserControl
     {
-        public GamesView()
+        public MainView()
         {
             InitializeComponent();
         }

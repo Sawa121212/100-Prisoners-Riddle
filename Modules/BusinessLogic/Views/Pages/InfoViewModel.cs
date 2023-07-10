@@ -34,7 +34,7 @@ namespace BusinessLogic.Views.Pages
 
         private void OnGo()
         {
-            _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(GamesView));
+            _regionManager.RequestNavigate(RegionNameService.ContentRegionName, nameof(MainView));
         }
 
 

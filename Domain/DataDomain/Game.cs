@@ -27,12 +27,18 @@ namespace DataDomain
             _itemCircle = new ObservableCollection<ItemCircle>();
         }
 
+        /// <summary>
+        /// Номер игры
+        /// </summary>
         public int Id
         {
             get => _id;
             private set => this.RaiseAndSetIfChanged(ref _id, value);
         }
 
+        /// <summary>
+        /// Описание
+        /// </summary>
         public string Description => $"Game {_id}";
 
         /// <summary>
@@ -54,6 +60,9 @@ namespace DataDomain
             }
         }
 
+        /// <summary>
+        /// Проверить на успешное выполнение 
+        /// </summary>
         public void CheckSuccess()
         {
             IsSuccess = _prisoners.FirstOrDefault(p => !p.IsNoteFound) == null;
@@ -84,7 +93,7 @@ namespace DataDomain
                     // запоминаем номер след. открываемой коробки по PrisonerId
                     boxIndex = box.PrisonerId;
 
-                    circle.Add(new CircleSubject() { Width = 64, Height = 64, Content = box });
+                    circle.Add(new CircleSubject() { Width = 96, Height = 96, Content = box });
                     boxes.Remove(box);
                 }
 
@@ -121,6 +130,9 @@ namespace DataDomain
             private set => this.RaiseAndSetIfChanged(ref _prisoners, value);
         }
 
+        /// <summary>
+        /// Круги коробок
+        /// </summary>
         public ObservableCollection<ItemCircle> ItemCircle
         {
             get => _itemCircle;

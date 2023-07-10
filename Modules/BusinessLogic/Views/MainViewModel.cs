@@ -7,26 +7,32 @@ using Prism.Commands;
 using Prism.Regions;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Avalonia.Threading;
+using BusinessLogic.Infrastructure.Interfaces;
 
 namespace BusinessLogic.Views
 {
     /// <summary>
     /// Окно игры
     /// </summary>
-    public partial class GamesViewModel : ViewModelBase, INavigationAware
+    public partial class MainViewModel : ViewModelBase, INavigationAware
     {
         private readonly IMainService _mainService;
         private ObservableCollection<Game> _games;
         private Game _selectedGame;
         private ItemCircle _testM;
+        private int _gamesCount;
         private int _prisonersCount;
+        private bool _isBusy;
 
-        public GamesViewModel(IRegionManager regionManager, IMainService mainService)
+        public MainViewModel(IRegionManager regionManager, IMainService mainService)
         {
             _regionManager = regionManager;
             _mainService = mainService;
             _games = _mainService.Games;
+            _gamesCount = 1;
             _prisonersCount = 100;
 
             AddNewGameCommand = ReactiveCommand.Create(OnAddNewGame);
@@ -40,19 +46,36 @@ namespace BusinessLogic.Views
 
         private void OnSelectedCircleItemChanged()
         {
-            
         }
 
         /// <summary>
         /// Добавить новую игру
         /// </summary>
-        private void OnAddNewGame()
+        private async Task OnAddNewGame()
         {
-            _mainService.StartNewGame(_prisonersCount);
+            IsBusy = true;
+
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < _gamesCount; i++)
+                {
+                    _mainService.StartNewGame(_prisonersCount);
+                }
+            });
+            IsBusy = false;
         }
 
         /// <summary>
         /// Количество заключенных в игре
+        /// </summary>
+        public int GamesCount
+        {
+            get => _gamesCount;
+            set => this.RaiseAndSetIfChanged(ref _gamesCount, value);
+        }
+
+        /// <summary>
+        /// Количество игр
         /// </summary>
         public int PrisonersCount
         {
@@ -76,6 +99,15 @@ namespace BusinessLogic.Views
         {
             get => _selectedGame;
             set => this.RaiseAndSetIfChanged(ref _selectedGame, value);
+        }
+
+        /// <summary>
+        /// Выбранная игра
+        /// </summary>
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => this.RaiseAndSetIfChanged(ref _isBusy, value);
         }
 
         public ICommand AddNewGameCommand { get; }
