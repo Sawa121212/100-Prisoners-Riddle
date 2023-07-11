@@ -28,7 +28,7 @@
 
                     <!-- Games -->
                     <TabItem Header="{localization:Localize Games}">
-                        <styles:Card>
+                        <styles:Card Padding="3">
                             <avalonia1:PlotView
                                 Background="Transparent"
                                 Model="{Binding GamesWinLoseModel}"
@@ -38,6 +38,12 @@
 
                     <!-- Prisoners -->
                     <TabItem Header="{localization:Localize Prisoners}">
+                        <styles:Card>
+                          <avalonia1:PlotView
+                                Background="Transparent"
+                                Model="{Binding PrisonerWinLoseModel}"
+                                Controller="{Binding PlotController}" />
+                        </styles:Card>
                     </TabItem>
                 </TabControl>
             </TabItem>

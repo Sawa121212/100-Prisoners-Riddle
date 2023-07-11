@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using BusinessLogic.Infrastructure.Interfaces;
@@ -18,6 +19,7 @@ namespace BusinessLogic.Views.Report
         private IRegionNavigationJournal _journal;
         private PlotModel _gamesWinLoseModel;
         private PlotController _plotController;
+        private PlotModel _prisonerWinLoseModel;
 
         public ReportViewModel(IMainService mainService)
         {
@@ -54,6 +56,26 @@ namespace BusinessLogic.Views.Report
                 seriesP1.Slices.Add(new PieSlice($"Lose ({gamesLose})", gamesLose) {IsExploded = false, Fill = OxyColors.Red});
 
                 _gamesWinLoseModel.Series.Add(seriesP1);
+
+
+                // Win\Lose Games
+                _prisonerWinLoseModel = new PlotModel() { Title = @"Win\Lose Prisoner" };
+
+                List<int> prisonersWin = games.Select(g => g.Prisoners.Count(p => p.IsNoteFound)).ToList();
+                List<int> prisonersLose = games.Select(g => g.Prisoners.Count(p => !p.IsNoteFound)).ToList();
+
+
+                dynamic seriesPrisoners1 = new PieSeries
+                {
+                    StrokeThickness = 2.0,
+                    InsideLabelPosition = 0.7,
+                    AngleSpan = 360,
+                    StartAngle = 0
+                };
+                seriesPrisoners1.Slices.Add(new PieSlice($"Win ({prisonersWin.Sum()})", prisonersWin.Sum()) { IsExploded = true, Fill = OxyColors.Green });
+                seriesPrisoners1.Slices.Add(new PieSlice($"Lose ({prisonersLose.Sum()})", prisonersLose.Sum()) { IsExploded = false, Fill = OxyColors.Red });
+
+                _prisonerWinLoseModel.Series.Add(seriesPrisoners1);
             }
         }
 
@@ -62,6 +84,12 @@ namespace BusinessLogic.Views.Report
         {
             get => _gamesWinLoseModel;
             set => this.RaiseAndSetIfChanged(ref _gamesWinLoseModel, value);
+        }
+
+        public PlotModel PrisonerWinLoseModel
+        {
+            get => _prisonerWinLoseModel;
+            set => this.RaiseAndSetIfChanged(ref _prisonerWinLoseModel, value);
         }
 
         public PlotController PlotController
