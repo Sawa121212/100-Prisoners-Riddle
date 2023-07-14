@@ -5,6 +5,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         x:Class="PrisonersRiddle.Views.ShellView"
         WindowStartupLocation="CenterScreen"
+        Icon="../Assets/Prisoner_32x32.png"
         Title="{Binding Title}" Width="1280" Height="720">
 
   <Panel>

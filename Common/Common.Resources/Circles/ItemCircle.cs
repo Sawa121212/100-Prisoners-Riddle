@@ -19,16 +19,22 @@ namespace Common.Resources.Circles
             _items = new ObservableCollection<CircleSubject>();
         }
 
+        /// <summary>
+        /// Добавить элемент
+        /// </summary>
+        /// <param name="circleSubject"></param>
         public void Add(CircleSubject circleSubject)
         {
-            if (circleSubject == null) 
+            if (circleSubject == null)
                 return;
 
             _items.Add(circleSubject);
-            OnUpdatePositioning();
         }
 
-        private void OnUpdatePositioning()
+        /// <summary>
+        /// Обновить представление
+        /// </summary>
+        public void OnUpdatePositioning()
         {
             if (!_items.Any())
             {
@@ -75,6 +81,9 @@ namespace Common.Resources.Circles
             }
         }
 
+        /// <summary>
+        /// Описание
+        /// </summary>
         public string Description
         {
             get => _description;
@@ -112,47 +121,5 @@ namespace Common.Resources.Circles
         private double _width;
         private double _height;
         private Point _center;
-    }
-
-    /// <summary>
-    /// Объект круга
-    /// </summary>
-    public class CircleSubject : ReactiveObject
-    {
-        private object _content;
-        private double _x;
-        private double _y;
-        private double _width;
-        private double _height;
-
-        public object Content
-        {
-            get => _content;
-            set => this.RaiseAndSetIfChanged(ref _content, value);
-        }
-
-        public double X
-        {
-            get => _x;
-            set => this.RaiseAndSetIfChanged(ref _x, value);
-        }
-
-        public double Y
-        {
-            get => _y;
-            set => this.RaiseAndSetIfChanged(ref _y, value);
-        }
-
-        public double Width
-        {
-            get => _width;
-            set => this.RaiseAndSetIfChanged(ref _width, value);
-        }
-
-        public double Height
-        {
-            get => _height;
-            set => this.RaiseAndSetIfChanged(ref _height, value);
-        }
     }
 }

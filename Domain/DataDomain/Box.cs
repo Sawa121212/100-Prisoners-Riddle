@@ -2,41 +2,30 @@
 
 namespace DataDomain
 {
-
+    /// <summary>
+    /// Коробка
+    /// </summary>
     public class Box : ReactiveObject
     {
-        private int _id;
-        private int _prisonerId;
-        private bool _isPrisonerFound;
-
         public Box(int id, int prisonerId)
         {
-            _id = id;
-            _prisonerId = prisonerId;
+            Id = id;
+            PrisonerId = prisonerId;
         }
 
         /// <summary>
         /// Number
         /// </summary>
-        public int Id
-        {
-            get => _id;
-            private set => this.RaiseAndSetIfChanged(ref _id, value);
-        }
+        public int Id { get; }
 
         /// <summary>
         /// Prisoner Id
         /// </summary>
-        public int PrisonerId
-        {
-            get => _prisonerId;
-            private set => this.RaiseAndSetIfChanged(ref _prisonerId, value);
-        }
+        public int PrisonerId { get; }
 
-        public bool IsPrisonerFound
-        {
-            get => _isPrisonerFound;
-            set => this.RaiseAndSetIfChanged(ref _isPrisonerFound, value);
-        }
+        /// <summary>
+        /// Флаг, что в коробке заключенный нашел свой номер
+        /// </summary>
+        public bool IsPrisonerFound { get; set; }
     }
 }

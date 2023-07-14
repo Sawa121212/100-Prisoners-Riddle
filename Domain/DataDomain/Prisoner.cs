@@ -1,9 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using ReactiveUI;
 
 namespace DataDomain
 {
-
     /// <summary>
     /// Заключенный
     /// </summary>
@@ -11,21 +10,27 @@ namespace DataDomain
     {
         private int _id;
         private bool _isNoteFound;
-        private ObservableCollection<Box> _openBoxes;
+        private List<Box> _openBoxes;
 
         public Prisoner(int id)
         {
             _id = id;
-            _openBoxes = new ObservableCollection<Box>();
+            _openBoxes = new List<Box>();
         }
 
         /// <summary>
         /// Добавить открытую коробку
         /// </summary>
         /// <param name="box"></param>
-        public void AddOpenedBox(Box box)
+        public void OpenBox(Box box)
         {
             _openBoxes.Add(box);
+
+            if (!box.PrisonerId.Equals(Id))
+                return;
+
+            box.IsPrisonerFound = true;
+            IsNoteFound = true;
         }
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace DataDomain
         /// <summary>
         /// Открытые коробки
         /// </summary>
-        public ObservableCollection<Box> OpenBoxes
+        public List<Box> OpenBoxes
         {
             get => _openBoxes;
             private set => this.RaiseAndSetIfChanged(ref _openBoxes, value);

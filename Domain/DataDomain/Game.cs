@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Common.Resources.Circles;
-using DynamicData;
 using ReactiveUI;
 
 namespace DataDomain
 {
-
     /// <summary>
     /// Игра
     /// </summary>
     public class Game : ReactiveObject
     {
         private Room _room;
-        private ObservableCollection<Prisoner> _prisoners;
-        private ObservableCollection<ItemCircle> _itemCircle;
+        private List<Prisoner> _prisoners;
+        private List<ItemCircle> _itemCircle;
         private int _id;
         private bool _isSuccess;
 
         public Game(int id)
         {
             _id = id;
-            _prisoners = new ObservableCollection<Prisoner>();
-            _itemCircle = new ObservableCollection<ItemCircle>();
+            _prisoners = new List<Prisoner>();
+            _itemCircle = new List<ItemCircle>();
         }
 
         /// <summary>
@@ -42,14 +40,25 @@ namespace DataDomain
         public string Description => $"Game {_id}";
 
         /// <summary>
-        /// Собрать вместе
+        /// Начать игру
+        /// </summary>
+        public async Task Play(int prisonersCount)
+        {
+            await Build(prisonersCount);
+            await StartSearch();
+            await CheckSuccess();
+            await BuildCircles().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Собрать вместе заключенных и комнату
         /// </summary>
         /// <param name="count"></param>
-        public void Build(int count)
+        private async Task Build(int count)
         {
             if (count != 0)
             {
-                _prisoners = new ObservableCollection<Prisoner>();
+                _prisoners = new List<Prisoner>();
 
                 for (int i = 0; i < count; i++)
                 {
@@ -61,28 +70,44 @@ namespace DataDomain
         }
 
         /// <summary>
+        /// Начать поиск номерка по коробкам в комнате
+        /// </summary>
+        private async Task StartSearch()
+        {
+            int maxSearchAttempt = _prisoners.Count / 2;
+            foreach (Prisoner prisoner in _prisoners)
+            {
+                _room.EnterTheRoom(prisoner, maxSearchAttempt);
+            }
+        }
+
+        /// <summary>
         /// Проверить на успешное выполнение 
         /// </summary>
-        public void CheckSuccess()
+        private async Task CheckSuccess()
         {
             IsSuccess = _prisoners.FirstOrDefault(p => !p.IsNoteFound) == null;
         }
 
-        public void BuildCircles()
-        {
-            var boxes = new List<Box>(_room.Boxes);
 
-            var boxIndex = 1;
-            var circleIndex = 1;
+        /// <summary>
+        /// Построить круги коробок
+        /// </summary>
+        private async Task BuildCircles()
+        {
+            List<Box> boxes = new(_room.Boxes);
+
+            int boxIndex = 1;
+            int circleIndex = 1;
 
             while (boxes.Any())
             {
-                var circle = new ItemCircle($"Circle #{circleIndex}");
+                ItemCircle circle = new($"Circle #{circleIndex}");
 
                 while (true)
                 {
                     // получили коробку по номеру
-                    var box = boxes.FirstOrDefault(box=> box.Id.Equals(boxIndex));
+                    Box? box = boxes.FirstOrDefault(box => box.Id.Equals(boxIndex));
 
                     // если нет такой коробки, значит он уже используется
                     if (box == null)
@@ -93,21 +118,24 @@ namespace DataDomain
                     // запоминаем номер след. открываемой коробки по PrisonerId
                     boxIndex = box.PrisonerId;
 
-                    circle.Add(new CircleSubject() { Width = 96, Height = 96, Content = box });
+                    circle.Add(new CircleSubject()
+                    {
+                        Width = 96,
+                        Height = 96,
+                        Content = box
+                    });
                     boxes.Remove(box);
                 }
 
-                // если мы не нашли коробки, начнем сначала
-                //if (!circle.ItemsSource.Any())
-                //{
-                //    continue;
-                //}
+                // update
+                circle.OnUpdatePositioning();
+
 
                 // save circle
                 _itemCircle.Add(circle);
 
                 // next box index
-                boxIndex = boxes.FirstOrDefault() is Box item ? item.Id : 0;
+                boxIndex = boxes.FirstOrDefault() is { } item ? item.Id : 0;
                 circleIndex++;
             }
         }
@@ -124,19 +152,10 @@ namespace DataDomain
         /// <summary>
         /// Заключенные
         /// </summary>
-        public ObservableCollection<Prisoner> Prisoners
+        public List<Prisoner> Prisoners
         {
             get => _prisoners;
             private set => this.RaiseAndSetIfChanged(ref _prisoners, value);
-        }
-
-        /// <summary>
-        /// Круги коробок
-        /// </summary>
-        public ObservableCollection<ItemCircle> ItemCircle
-        {
-            get => _itemCircle;
-            private set => this.RaiseAndSetIfChanged(ref _itemCircle, value);
         }
 
         /// <summary>
@@ -146,6 +165,15 @@ namespace DataDomain
         {
             get => _room;
             private set => this.RaiseAndSetIfChanged(ref _room, value);
+        }
+
+        /// <summary>
+        /// Круги коробок
+        /// </summary>
+        public List<ItemCircle> ItemCircle
+        {
+            get => _itemCircle;
+            private set => this.RaiseAndSetIfChanged(ref _itemCircle, value);
         }
     }
 }

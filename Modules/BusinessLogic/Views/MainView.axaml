@@ -96,10 +96,11 @@
                     </Grid>
                 </styles:Card>
 
-                <TabControl Grid.Column="1" Margin="5,5">
+                <TabControl Grid.Column="1" Margin="5,5"
+                            IsVisible="{Binding SelectedGame, Converter={x:Static ObjectConverters.IsNotNull}}">
 
                     <!-- Prisoners -->
-                    <TabItem Header="{localization:Localize Prisoners}">
+                    <TabItem Header="{localization:Localize Prisoners}" IsSelected="True">
                         <ListBox Items="{Binding SelectedGame.Prisoners}"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5,5,5">
                             <ListBox.ItemTemplate>
@@ -200,7 +201,7 @@
                     </TabItem>
 
                     <!-- Circles -->
-                    <TabItem Header="Circles" IsSelected="True">
+                    <TabItem Header="Circles">
                         <Grid ColumnDefinitions="Auto, *">
 
                             <!-- Circle list -->

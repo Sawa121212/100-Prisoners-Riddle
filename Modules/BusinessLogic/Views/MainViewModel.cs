@@ -1,6 +1,4 @@
-﻿using Avalonia.Controls;
-using BusinessLogic.Infrastructure.Services;
-using Common.Core;
+﻿using Common.Core;
 using Common.Resources.Circles;
 using DataDomain;
 using Prism.Commands;
@@ -9,8 +7,9 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Avalonia.Threading;
+using BusinessLogic.Events;
 using BusinessLogic.Infrastructure.Interfaces;
+using Prism.Events;
 
 namespace BusinessLogic.Views
 {
@@ -19,7 +18,8 @@ namespace BusinessLogic.Views
     /// </summary>
     public partial class MainViewModel : ViewModelBase, INavigationAware
     {
-        private readonly IMainService _mainService;
+        private readonly IPrisonDirectorManager _mainService;
+        private readonly IEventAggregator _eventAggregator;
         private ObservableCollection<Game> _games;
         private Game _selectedGame;
         private ItemCircle _testM;
@@ -27,11 +27,15 @@ namespace BusinessLogic.Views
         private int _prisonersCount;
         private bool _isBusy;
 
-        public MainViewModel(IRegionManager regionManager, IMainService mainService)
+        public MainViewModel(
+            IRegionManager regionManager,
+            IPrisonDirectorManager mainService,
+            IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
             _mainService = mainService;
-            _games = _mainService.Games;
+            _eventAggregator = eventAggregator;
+            _games = new ObservableCollection<Game>(_mainService.Games);
             _gamesCount = 100;
             _prisonersCount = 100;
 
@@ -53,9 +57,13 @@ namespace BusinessLogic.Views
             {
                 for (int i = 0; i < _gamesCount; i++)
                 {
-                    _mainService.StartNewGame(_prisonersCount);
+                   _mainService.StartNewGame(_prisonersCount);
                 }
             });
+
+            Games = new ObservableCollection<Game>(_mainService.Games);
+
+            _eventAggregator.GetEvent<UpdatePlotsEvent>().Publish();
             IsBusy = false;
         }
 

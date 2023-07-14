@@ -43,8 +43,7 @@ namespace PrisonersRiddle
             containerRegistry
                 .RegisterSingleton<ILocalizer, Localizer>()
                 .RegisterSingleton<IResourceProvider, ResourceProvider>(Assembly.GetExecutingAssembly().FullName)
-                .RegisterSingleton<IMainService, MainService>()
-                .RegisterSingleton<ISearchService, SearchService>()
+                .RegisterSingleton<IPrisonDirectorManager, PrisonDirectorManager>()
                 ;
             containerRegistry.RegisterSingleton<ShellView>();
         }

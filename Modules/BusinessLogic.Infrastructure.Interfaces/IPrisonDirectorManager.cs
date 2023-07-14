@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using DataDomain;
 
 namespace BusinessLogic.Infrastructure.Interfaces
 {
-    public interface IMainService
+    public interface IPrisonDirectorManager
     {
         /// <summary>
         /// Текущая игра
@@ -13,7 +13,7 @@ namespace BusinessLogic.Infrastructure.Interfaces
         /// <summary>
         /// Список игр
         /// </summary>
-        public ObservableCollection<Game> Games { get; }
+        public List<Game> Games { get; }
 
         /// <summary>
         /// Начать новую игру

@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Threading;
-using BusinessLogic.Views;
 using Common.Core;
 using Common.Core.Extensions;
 using Common.Core.Localization;
