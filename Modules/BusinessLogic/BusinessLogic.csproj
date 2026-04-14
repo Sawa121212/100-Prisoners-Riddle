@@ -13,13 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.21" />
-    <PackageReference Include="Avalonia.Controls.PanAndZoom" Version="10.14.0" />
-    <PackageReference Include="Material.Avalonia" Version="2.5.1" />
-    <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.19" />
-    <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.19" />
-    <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0" />
-    <PackageReference Include="Prism.Avalonia" Version="8.1.97.1021" />
+    <PackageReference Include="Avalonia" Version="11.3.14" />
+    <PackageReference Include="Avalonia.Controls.PanAndZoom" Version="11.3.0" />
+    <PackageReference Include="Material.Avalonia" Version="3.14.2" />
+    <PackageReference Include="Material.Icons.Avalonia" Version="3.0.0" />
+    <PackageReference Include="Avalonia.Xaml.Interactivity" Version="11.3.0.6" />
+    <PackageReference Include="Avalonia.Xaml.Interactions" Version="11.3.0.6" />
+    <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0-Avalonia11" />
+    <PackageReference Include="Prism.Avalonia" Version="8.1.97.11073" />
   </ItemGroup>
 
   <ItemGroup>

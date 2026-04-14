@@ -1,7 +1,6 @@
-﻿namespace Common.Core.Localization
+﻿namespace Common.Core.Localization;
+
+public interface IResourceProvider
 {
-    public interface IResourceProvider
-    {
-        void ChangeResources();
-    }
+    void ChangeResources();
 }

@@ -1,18 +1,17 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BusinessLogic.Views.Report
-{
-    public partial class ReportView : UserControl
-    {
-        public ReportView()
-        {
-            InitializeComponent();
-        }
+namespace BusinessLogic.Views.Report;
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+public partial class ReportView : UserControl
+{
+    public ReportView()
+    {
+        InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

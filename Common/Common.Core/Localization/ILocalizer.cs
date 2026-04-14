@@ -1,15 +1,14 @@
 ﻿#nullable enable
 using System.Resources;
 
-namespace Common.Core.Localization
+namespace Common.Core.Localization;
+
+public interface ILocalizer
 {
-    public interface ILocalizer
-    {
-        void ChangeLanguage(string language);
+    void ChangeLanguage(string language);
 
-        string? GetExpression(string key);
+    string? GetExpression(string key);
 
-        void EditLn(string language);
-        void AddResourceManager(ResourceManager resourceManager);
-    }
+    void EditLn(string language);
+    void AddResourceManager(ResourceManager resourceManager);
 }

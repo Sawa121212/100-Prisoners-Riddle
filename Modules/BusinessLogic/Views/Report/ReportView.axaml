@@ -1,17 +1,15 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mvvm="http://prismlibrary.com/"
-             xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
              xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
              xmlns:converters="clr-namespace:Common.Core.Converters;assembly=Common.Core"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:base="clr-namespace:Material.Styles.Themes.Base;assembly=Material.Styles"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:vm="using:BusinessLogic.Views.Report"
              xmlns:avalonia1="http://oxyplot.org/avalonia"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="BusinessLogic.Views.Report.ReportView">
 
     <UserControl.Resources>
@@ -28,22 +26,22 @@
 
                     <!-- Games -->
                     <TabItem Header="{localization:Localize Games}">
-                        <styles:Card Padding="3">
+                        <controls:Card Padding="3">
                             <avalonia1:PlotView
                                 Background="Transparent"
                                 Model="{Binding GamesWinLoseModel}"
                                 Controller="{Binding PlotController}" />
-                        </styles:Card>
+                        </controls:Card>
                     </TabItem>
 
                     <!-- Prisoners -->
                     <TabItem Header="{localization:Localize Prisoners}">
-                        <styles:Card>
-                          <avalonia1:PlotView
+                        <controls:Card>
+                            <avalonia1:PlotView
                                 Background="Transparent"
                                 Model="{Binding PrisonerWinLoseModel}"
                                 Controller="{Binding PlotController}" />
-                        </styles:Card>
+                        </controls:Card>
                     </TabItem>
                 </TabControl>
             </TabItem>

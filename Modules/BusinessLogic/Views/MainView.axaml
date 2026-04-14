@@ -4,10 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:prism="http://prismlibrary.com/"
-             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
              xmlns:localization="clr-namespace:Common.Core.Localization;assembly=Common.Core"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:paz="clr-namespace:Avalonia.Controls.PanAndZoom;assembly=Avalonia.Controls.PanAndZoom"
              xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
@@ -15,6 +12,8 @@
              xmlns:itemCircle="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
              xmlns:circles="clr-namespace:Common.Resources.Circles;assembly=Common.Resources"
              xmlns:behaviors="clr-namespace:BusinessLogic.Behaviors"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              prism:ViewModelLocator.AutoWireViewModel="True"
              x:Class="BusinessLogic.Views.MainView">
     <Panel>
@@ -23,47 +22,65 @@
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
 
                 <!-- Games -->
-                <styles:Card Grid.Column="0" Margin="5, 3">
+                <controls:Card Grid.Column="0" Margin="5, 3">
                     <Grid RowDefinitions="Auto, Auto, Auto, *, Auto" Margin="0,5">
-                        <TextBlock Grid.Row="0" Classes="Subtitle1" Text="{localization:Localize Games}"
+                        <TextBlock Grid.Row="0"
+                                   Classes="Subtitle1"
+                                   Text="{localization:Localize Games}"
                                    FontWeight="Bold"
-                                   VerticalAlignment="Center" Margin="5,0" />
+                                   VerticalAlignment="Center"
+                                   Margin="5,0" />
 
-                        <styles:Card Grid.Row="1"
-                                     BorderThickness="1"
-                                     BorderBrush="{DynamicResource MaterialDesignSelection}"
-                                     Margin="0, 3">
-                            <Grid RowDefinitions="Auto, Auto">
-                                <Grid Grid.Row="0" ColumnDefinitions="Auto, *">
-                                    <TextBlock Grid.Column="0"
-                                               Text="{localization:Localize Games}"
-                                               VerticalAlignment="Center" Margin="5,0" />
-                                    <TextBox Grid.Column="1" Classes="Subtitle1"
-                                             Text="{Binding  GamesCount}"
-                                             FontWeight="Bold" VerticalAlignment="Center"
-                                             Margin="3,0" />
-                                </Grid>
-                                <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto">
-                                    <TextBlock Grid.Column="0"
-                                               Text="{localization:Localize Prisoners}"
-                                               VerticalAlignment="Center" Margin="5,0" />
-                                    <TextBox Grid.Column="1" Classes="Subtitle1"
-                                             Text="{Binding PrisonersCount}"
-                                             FontWeight="Bold" VerticalAlignment="Center"
-                                             Margin="3,0" />
-                                    <Button Grid.Column="2" Content="{localization:Localize Add}"
-                                            Command="{Binding AddNewGameCommand}"
-                                            Margin="3,1" />
-                                </Grid>
+                        <controls:Card BorderThickness="1"
+                                       BorderBrush="{DynamicResource MaterialDesignSelection}"
+                                       Margin="0, 3"
+                                       Grid.Row="1">
+                            <Grid RowDefinitions="Auto, Auto, Auto"
+                                  ColumnDefinitions="Auto, *"
+                                  RowSpacing="5"
+                                  ColumnSpacing="5"
+                                  Margin="5">
+                                <TextBlock Text="{localization:Localize Games}"
+                                           VerticalAlignment="Center"
+                                           Grid.Row="0"
+                                           Grid.Column="0" />
+                                <TextBox Text="{Binding GamesCount}"
+                                         Classes="outline"
+                                         UseFloatingWatermark="False"
+                                         FontWeight="Bold"
+                                         VerticalAlignment="Center"
+                                         Grid.Row="0"
+                                         Grid.Column="1"
+                                         Margin="3,0" />
+
+                                <TextBlock Text="{localization:Localize Prisoners}"
+                                           VerticalAlignment="Center"
+                                           Grid.Row="1"
+                                           Grid.Column="0" />
+                                <TextBox Text="{Binding PrisonersCount}"
+                                         Classes="outline"
+                                         UseFloatingWatermark="False"
+                                         FontWeight="Bold"
+                                         VerticalAlignment="Center"
+                                         Grid.Row="1"
+                                         Grid.Column="1" />
+
+                                <Button Content="{localization:Localize Add}"
+                                        Command="{Binding AddNewGameCommand}"
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"/>
                             </Grid>
-                        </styles:Card>
+                        </controls:Card>
 
                         <Separator Grid.Row="2" />
 
                         <!-- Games -->
-                        <ListBox Grid.Row="3" Items="{Binding Games}"
+                        <ListBox ItemsSource="{Binding Games}"
                                  SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5">
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 Grid.Row="3"
+                                 Margin="0, 5">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="dataDomain:Game">
                                     <Panel Margin="3,0">
@@ -82,8 +99,8 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                      <!-- Report Button -->
-                      <Button Grid.Row="4" Command="{Binding ShowReportCommand}"
+                        <!-- Report Button -->
+                        <Button Grid.Row="4" Command="{Binding ShowReportCommand}"
                                 IsEnabled="{Binding Games.Count}"
                                 Margin="0,3, 0,0">
                             <Button.Content>
@@ -94,13 +111,13 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                </styles:Card>
+                </controls:Card>
 
                 <TabControl Grid.Column="1" Margin="5,5">
 
                     <!-- Prisoners -->
                     <TabItem Header="{localization:Localize Prisoners}">
-                        <ListBox Items="{Binding SelectedGame.Prisoners}"
+                        <ListBox ItemsSource="{Binding SelectedGame.Prisoners}"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5,5,5">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="dataDomain:Prisoner">
@@ -130,7 +147,7 @@
                                                       VerticalAlignment="Center" Margin="5"
                                                       BorderBrush="{DynamicResource MaterialDesignSelection}"
                                                       BorderThickness="1">
-                                                <ItemsControl Items="{Binding OpenBoxes}">
+                                                <ItemsControl ItemsSource="{Binding OpenBoxes}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <WrapPanel />
@@ -169,7 +186,7 @@
                     <!-- Room -->
                     <TabItem Header="Room">
                         <Border Padding="5" BorderThickness="25" BorderBrush="#b4b6b6" Margin="3">
-                            <ItemsControl Items="{Binding SelectedGame.Room.Boxes}">
+                            <ItemsControl ItemsSource="{Binding SelectedGame.Room.Boxes}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel />
@@ -204,7 +221,7 @@
                         <Grid ColumnDefinitions="Auto, *">
 
                             <!-- Circle list -->
-                            <styles:Card Grid.Column="0" MinWidth="140" Margin="0, 3">
+                            <controls:Card Grid.Column="0" MinWidth="140" Margin="0, 3">
                                 <Grid RowDefinitions="Auto, Auto, Auto, *" Margin="0,5">
                                     <TextBlock Grid.Row="0" Classes="Subtitle1" Text="Circles"
                                                FontWeight="Bold"
@@ -212,18 +229,19 @@
 
                                     <Separator Grid.Row="1" />
 
-                                    <ListBox Grid.Row="2"
+                                    <ListBox ItemsSource="{Binding SelectedGame.ItemCircle}"
+                                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                             Grid.Row="2"
                                              Name="CirclesListBox"
-                                             Items="{Binding SelectedGame.ItemCircle}"
-                                             ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0, 5,5,5">
+                                             Margin="0, 5,5,5">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate x:DataType="itemCircle:ItemCircle">
                                                 <Grid>
                                                     <Grid ColumnDefinitions="*,Auto, Auto">
 
-                                                        <materialIcons:MaterialIcon Grid.Column="0"
-                                                            Kind="VectorCircle"
-                                                            Margin="3 0" />
+                                                        <avalonia:MaterialIcon Grid.Column="0"
+                                                                               Kind="VectorCircle"
+                                                                               Margin="3 0" />
 
                                                         <TextBlock Grid.Column="1"
                                                                    Text="{Binding Description}"
@@ -244,7 +262,7 @@
                                         </i:Interaction.Behaviors>
                                     </ListBox>
                                 </Grid>
-                            </styles:Card>
+                            </controls:Card>
 
                             <!-- ItemsSource -->
                             <paz:ZoomBorder Grid.Column="1" Name="ZoomBorder" Stretch="None"
@@ -254,13 +272,12 @@
                                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                             IsVisible="{Binding SelectedItem, ElementName=CirclesListBox, Converter={x:Static ObjectConverters.IsNotNull}}">
 
-                                <styles:Card Margin="5, 3"
-                                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                                             Width="{Binding SelectedItem.Width, ElementName=CirclesListBox}"
-                                             Height="{Binding SelectedItem.Height, ElementName=CirclesListBox}"
-                                             Padding="0">
-                                    <ItemsControl
-                                        Items="{Binding SelectedItem.ItemsSource, ElementName=CirclesListBox}">
+                                <controls:Card Margin="5, 3"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Width="{Binding SelectedItem.Width, ElementName=CirclesListBox}"
+                                               Height="{Binding SelectedItem.Height, ElementName=CirclesListBox}"
+                                               Padding="0">
+                                    <ItemsControl ItemsSource="{Binding SelectedItem.ItemsSource, ElementName=CirclesListBox}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <Canvas />
@@ -294,7 +311,7 @@
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                </styles:Card>
+                                </controls:Card>
 
                                 <i:Interaction.Behaviors>
                                     <behaviors:ScaleToFitBehavior />
@@ -305,32 +322,32 @@
                 </TabControl>
             </Grid>
 
-            <styles:Card Grid.Row="1" Margin="5,0,5,5">
+            <controls:Card Grid.Row="1" Margin="5,0,5,5">
                 <StackPanel Spacing="3"
                             Orientation="Horizontal"
                             HorizontalAlignment="Right">
                     <Button Classes="Flat"
-                            Content="{materialIcons:MaterialIconExt Kind=Information}"
+                            Content="{avalonia:MaterialIconExt Kind=Information}"
                             Command="{Binding ShowInformationCommand}" />
                     <Button Classes="Flat"
-                            Content="{materialIcons:MaterialIconExt Kind=Settings}"
+                            Content="{avalonia:MaterialIconExt Kind=Settings}"
                             Command="{Binding ShowSettingsCommand}" />
                     <Button Classes="Flat"
-                            Content="{materialIcons:MaterialIconExt Kind=Code}"
+                            Content="{avalonia:MaterialIconExt Kind=Code}"
                             Command="{Binding ShowAboutCommand}" />
                 </StackPanel>
-            </styles:Card>
+            </controls:Card>
         </Grid>
         <Panel Background="{DynamicResource MaterialDesignSelection}"
                Opacity="0.5"
                IsVisible="{Binding IsBusy, Mode=OneWay}" />
         <Grid RowDefinitions="*, Auto, *" ColumnDefinitions="*, Auto, *"
               IsVisible="{Binding IsBusy, Mode=OneWay}">
-            <styles:Card Grid.Row="1" Grid.Column="1"
-                         Padding="15">
-                <ProgressBar Classes="Circle"
+            <controls:Card Grid.Row="1" Grid.Column="1"
+                           Padding="15">
+                <ProgressBar Classes="circular"
                              IsIndeterminate="True" />
-            </styles:Card>
+            </controls:Card>
         </Grid>
     </Panel>
 </UserControl>

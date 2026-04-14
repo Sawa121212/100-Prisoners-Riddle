@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Core.Extensions { 
+namespace Common.Core.Extensions;
 
 public static class EnumExtensions
 {
@@ -18,4 +18,4 @@ public static class EnumExtensions
                 ? throw new ArgumentException(nameof(enumString))
                 : default(T);
     }
-} }
+}

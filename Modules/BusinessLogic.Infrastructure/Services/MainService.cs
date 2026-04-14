@@ -53,7 +53,7 @@ namespace BusinessLogic.Infrastructure.Services
         /// </summary>
         private void StartSearch()
         {
-            foreach (var prisoner in _game.Prisoners)
+            foreach (Prisoner prisoner in _game.Prisoners)
             {
                 _searchService.ComeIntoTheRoom(prisoner, _game.Room, _maxSearchAttempt);
             }

@@ -1,32 +1,32 @@
-using System;
+﻿using System;
 using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Common.Core;
 
-namespace PrisonersRiddle{
+namespace PrisonersRiddle;
 
 /// <summary>
 /// Локатор View по ViewModel
 /// </summary>
 public class ViewLocator : IDataTemplate
 {
-    public IControl Build(object data)
+    public Control Build(object data)
     {
-        var viewModelType = data.GetType();
+        Type viewModelType = data.GetType();
 
-        var viewName = viewModelType.FullName?.Replace("ViewModel", "View");
-        var viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
+        string? viewName = viewModelType.FullName?.Replace("ViewModel", "View");
+        string? viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
 
         if (viewName is null)
         {
             return new TextBlock { Text = "Invalid Data Type" };
         }
 
-        var type = Type.GetType($"{viewName}, {viewModelAssemblyName}");
+        Type? type = Type.GetType($"{viewName}, {viewModelAssemblyName}");
         if (type is { })
         {
-            var instance = Activator.CreateInstance(type);
+            object? instance = Activator.CreateInstance(type);
             if (instance is { })
             {
                 return (Control)instance;
@@ -46,4 +46,4 @@ public class ViewLocator : IDataTemplate
     {
         return data is ViewModelBase;
     }
-} }
+}

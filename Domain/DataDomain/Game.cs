@@ -70,19 +70,19 @@ namespace DataDomain
 
         public void BuildCircles()
         {
-            var boxes = new List<Box>(_room.Boxes);
+            List<Box> boxes = new List<Box>(_room.Boxes);
 
-            var boxIndex = 1;
-            var circleIndex = 1;
+            int boxIndex = 1;
+            int circleIndex = 1;
 
             while (boxes.Any())
             {
-                var circle = new ItemCircle($"Circle #{circleIndex}");
+                ItemCircle circle = new ItemCircle($"Circle #{circleIndex}");
 
                 while (true)
                 {
                     // получили коробку по номеру
-                    var box = boxes.FirstOrDefault(box=> box.Id.Equals(boxIndex));
+                    Box? box = boxes.FirstOrDefault(box=> box.Id.Equals(boxIndex));
 
                     // если нет такой коробки, значит он уже используется
                     if (box == null)

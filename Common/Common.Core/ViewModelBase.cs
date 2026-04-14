@@ -1,9 +1,7 @@
-using Prism.Mvvm;
-using ReactiveUI;
+﻿using ReactiveUI;
 
-namespace Common.Core
+namespace Common.Core;
+
+public abstract class ViewModelBase : ReactiveObject
 {
-    public abstract class ViewModelBase : ReactiveObject
-    {
-    }
 }

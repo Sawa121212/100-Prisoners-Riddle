@@ -33,7 +33,7 @@ namespace DataDomain
             if (prisoners.Count == 0)
                 return;
 
-            var randomPrisoners = Shuffle(prisoners);
+            List<Prisoner> randomPrisoners = Shuffle(prisoners);
 
             _boxes = new ObservableCollection<Box>();
             for (int i = 0; i < randomPrisoners.Count; i++)
@@ -48,12 +48,12 @@ namespace DataDomain
         /// <param name="prisoners"></param>
         private List<Prisoner> Shuffle(IList<Prisoner> prisoners)
         {
-            var newCollection = new List<Prisoner>(prisoners);
-            var n = newCollection.Count;
+            List<Prisoner> newCollection = new List<Prisoner>(prisoners);
+            int n = newCollection.Count;
             while (n > 1)
             {
                 n--;
-                var k = _rng.Next(n + 1);
+                int k = _rng.Next(n + 1);
                 (newCollection[k], newCollection[n]) = (newCollection[n], newCollection[k]);
             }
 

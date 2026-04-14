@@ -1,8 +1,8 @@
 ﻿using Avalonia;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 using System;
 
-namespace PrisonersRiddle{
+namespace PrisonersRiddle;
 
 class Program
 {
@@ -22,11 +22,6 @@ class Program
                 EnableMultiTouch = true,
                 UseDBusMenu = true
             })
-            .With(new Win32PlatformOptions
-            {
-                EnableMultitouch = true,
-                AllowEglInitialization = true
-            })
             .UseSkia()
-            .UseReactiveUI();
-} }
+            .UseReactiveUI(_ => { });
+}

@@ -1,7 +1,8 @@
-<Application xmlns="https://github.com/avaloniaui"
+﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              xmlns:prisonersRiddle="clr-namespace:PrisonersRiddle"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="PrisonersRiddle.App">
 
     <Application.DataTemplates>
@@ -12,8 +13,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source='avares://Common.Resources/Geometries.axaml' />
-                <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber" />
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -21,9 +20,10 @@
 
     <Application.Styles>
         <!-- Используем стиль Material.Avalonia -->
-        <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber" />
+        <avalonia:MaterialIconStyles />
 
         <!-- Add the line below to get OxyPlot UI theme applied. -->
-        <StyleInclude Source="avares://OxyPlot.Avalonia/Themes/Default.xaml" />
+        <StyleInclude Source="avares://OxyPlot.Avalonia/Themes/Default.axaml" />
     </Application.Styles>
 </Application>

@@ -1,18 +1,17 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BusinessLogic.Views.Pages
-{
-    public partial class InfoView : UserControl
-    {
-        public InfoView()
-        {
-            InitializeComponent();
-        }
+namespace BusinessLogic.Views.Pages;
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+public partial class InfoView : UserControl
+{
+    public InfoView()
+    {
+        InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }
